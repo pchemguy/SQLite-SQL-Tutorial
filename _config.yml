@@ -1,1 +1,18 @@
-theme: jekyll-theme-slate
+remote_theme: pmarsceill/just-the-docs
+
+title: "SQLite SQL Tutorial"
+
+webmaster_verifications:
+  google: "eeyANkR7sUrPKHD5z5GheWmEg9GY5Sjpn1aCSpbx0J0"
+  yandex: "8703f875cde8e0ac"
+
+# Google Analytics
+google_analytics: "UA-197722197-1"
+ga_tracking: "UA-197722197-1"
+
+# Yandex Metrica
+ya_tracking: "79433089"
+
+# Plugins
+plugins:
+  - jekyll-seo-tag
