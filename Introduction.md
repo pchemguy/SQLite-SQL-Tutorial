@@ -9,11 +9,13 @@ This project discusses select practical SQL problems, which I come across in the
 
 ### Limitations and Workarounds
 
-Because of the [target uses][SQLite Apps], SQLite lacks several useful features provided by more powerful client/server RDBMS engines, such as stored procedures, support for variables, and dynamic SQL. At the same time, the common tables expressions ([CTEs][]) feature implemented by SQLite provides an important tool for structured/modular programming. CTEs significantly simplify the development and readability of complex queries and provide a convenient debugging tool. [Parameterized queries][] at least partially compensate for missing stored procedures. The set of string manipulation functions provided by SQLite also  misses basic features, some of which can be implemented via its JSON module. Two advanced features -  [recursive CTEs][RCTEs] and [window functions][fWin] - also provide interesting functionality.
+Because of the [target uses][SQLite Apps], SQLite lacks several useful features provided by more powerful client/server RDBMS engines, such as stored procedures, support for variables, and dynamic SQL. At the same time, the "common tables expressions" ([CTEs][]) feature implemented by SQLite provides a powerful tool for structured/modular programming. CTEs significantly simplify the development and readability of complex queries and provide a convenient debugging tool. [Parameterized queries][] at least partially compensate for missing stored procedures. The set of SQLite's string manipulation functions also misses basic features, though its JSON module provides some alternative options. Two advanced features -  [recursive CTEs][RCTEs] and [window functions][fWin] - also provide helpful functionality.
 
-### Database Administration Tools
+### Tools
 
 I have tried several GUI database administration (DBA) tools. Most of the time, I use [SQLiteStudio][] and [DB Browser for SQLite][]. Both are feature-rich solid DBA tools. Among other features, SQLiteStudio has a powerful multiple-document interface and better support for extended DDL and multiple database connections. DB Browser for SQLite, on the other hand, provides instant search and multi-tabbed SQL script editor with code highlighting and completion. Occasionally, I use [DBeaver][] (a commercial tool with a community open source edition) and [HeidiSQL][].
+
+I use [StackEdit.io][] as the primary Markdown editor and [Tables Generator][] to prepare Markdown-formatted tables.
 
 <!--
 Summary of topics:
@@ -40,3 +42,5 @@ Summary of topics:
 [DB Browser for SQLite]: https://sqlitebrowser.org
 [DBeaver]: https://dbeaver.io
 [HeidiSQL]: https://heidisql.com
+[StackEdit.io]: https://stackedit.io
+[Tables Generator]: https://tablesgenerator.com
