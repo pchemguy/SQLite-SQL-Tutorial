@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modular SQL with CTE. db Meta
+title: SQL with CTE - DB Metadata
 nav_order: 2
 permalink: /meta-cte
 ---
