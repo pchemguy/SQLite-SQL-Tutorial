@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modular SQL-SQLite with CTE - Database and Engine Metadata
+title: Modular SQL with CTE. Database and Engine Metadata
 nav_order: 2
 permalink: /meta-cte
 ---
