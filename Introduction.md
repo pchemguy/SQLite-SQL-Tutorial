@@ -5,7 +5,7 @@ nav_order: 1
 permalink: /
 ---
 
-This project discusses select practical SQL problems, which I come across in the learning process, and the associated solutions. Its primary purpose is the organization of the acquired SQL/[SQLite][] knowledge. A separate project (the [SQLiteC for VBA][SQLiteCAdoReflectVBA] library) serves a similar purpose for the C-API interface of the library and its integration into an information management application. My long-term goal of using SQLite as a backend for managing personal and research information governs the scope of the discussed topics.
+This project discusses select practical SQL problems, which I come across in the learning process, and the associated solutions. Its primary purpose is the organization of the acquired SQL/[SQLite][] knowledge. A separate project (the [SQLiteC for VBA][SQLiteCAdoReflectVBA] library) serves a similar purpose for the C-API interface of the library and its integration into an information management application. My long-term goal of using SQLite as a backend for managing personal and research information governs the scope of the discussed topics. While I attempt to make the material accessible, this tutorial may not be suitable for first-timers.
 
 ### SQLite Limitations and Workarounds
 
