@@ -16,7 +16,7 @@ CREATE VIEW service_meta_sqlite_version_ex AS
 SELECT sqlite_version() AS version, sqlite_source_id() AS source_id
 
 CREATE VIEW service_list_functions AS
-SELECT * FROM pragma_function_list() AS functions ORDER BY name;
+SELECT * FROM pragma_function_list() AS functions ORDER BY name, nargs;
 
 CREATE VIEW service_list_collations AS
 SELECT * FROM pragma_collation_list() AS collations;
