@@ -51,7 +51,7 @@
               <y:Geometry height="106.59000000000015" width="277.51736884920376" x="470.85952264313937" y="-1386.4048199322513"/>
               <y:Fill color="#FFFFE0" color2="#FFFFE0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="60.02734375" x="108.74501254960182" y="4.0">&lt;objects&gt;</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="112.08778598710182" y="4.0">columns</y:NodeLabel>
               <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="78.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="280.0" x="2.0" y="30.701171875">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
@@ -232,7 +232,7 @@
           <y:Geometry height="106.59000000000015" width="332.28981139292677" x="790.3146936195211" y="-1386.4048199322513"/>
           <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="326.0" x="3.144905696463411" y="2.2950000000000728">&lt;html&gt;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="333.0" x="-0.355094303536589" y="2.2950000000000728">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       div.code {font-family: Courier New, sans-serif;}
@@ -248,7 +248,7 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid, name&lt;/span&gt;&lt;span class="kwl"&gt; AS &lt;/span&gt;&lt;span class="fld"&gt;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid, name&lt;/span&gt;&lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;AS&amp;nbsp;&lt;/span&gt;&lt;span class="fld"&gt;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;type, "notnull", dflt_value, pk&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_table_xinfo&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
