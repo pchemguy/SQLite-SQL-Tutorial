@@ -15,9 +15,7 @@ For example, consider the *pragma_table_xinfo* table-valued function, which take
 <p align="center"><b>Fig. 1. Structure of "Table Columns" Query</b></p>  
 
 
-<iframe id="TableColumnsHTML"
-        style="overflow-y: auto; position: absolute;"
-        width="100%" height="325" frameBorder="0"
+<iframe id="TableColumnsHTML" width="100%" height="325"
         src="https://pchemguy.github.io/SQLite-SQL-Tutorial/Table%20Columns.html">
 </iframe>
 
