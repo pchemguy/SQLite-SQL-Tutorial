@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <style>
+      div.code {font-family: Courier New, sans-serif;}
+      .kwd {color: #0000FF; font-weight: bold;} <!-- Dark keyword -->
+      .kwl {color: #00A0A0; font-weight: bold;} <!-- Light keyword -->
+      .typ {color: #800000; font-weight: bold;} <!-- Data type -->
+      .tab {color: #FF00FF; font-weight: bold;} <!-- Table name -->
+      .fld {color: #808000; font-weight: bold;} <!-- Field name -->
+      .prc {color: #000080; font-weight: bold;} <!-- Function name -->
+      .lit {color: #00C000; font-weight: bold;} <!-- Literal value -->
+    </style>
+  </head>
+  <body>
+    <div class="code">
+      <span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, cid, name&nbsp;&nbsp;<span class="kwl">AS</span>&nbsp;col_name,</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, cid</span>&nbsp;<br />
+      <span class="kwl">)</span>&nbsp;<br />
+    </div>
+  </body>
+</html>
