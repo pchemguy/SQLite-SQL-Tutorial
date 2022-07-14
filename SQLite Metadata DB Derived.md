@@ -19,6 +19,9 @@ For example, consider the *pragma_table_xinfo* table-valued function, which take
         src="https://pchemguy.github.io/SQLite-SQL-Tutorial/Table%20Columns.html">
 </iframe>
 
+<iframe id="IndicesHTML" width="100%" height="625" frameBorder="0"
+        src="https://pchemguy.github.io/SQLite-SQL-Tutorial/Indices.html">
+</iframe>
 
 
 <!-- References -->
