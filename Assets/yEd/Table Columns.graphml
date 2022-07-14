@@ -51,7 +51,7 @@
               <y:Geometry height="106.59000000000015" width="285.8373688492036" x="470.85952264313926" y="-1386.4048199322513"/>
               <y:Fill color="#FFFFE0" color2="#FFFFE0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="116.24778598710174" y="4.0">columns</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="116.24778598710179" y="4.0">columns</y:NodeLabel>
               <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="78.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="280.0" x="2.0" y="30.701171875">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
@@ -248,11 +248,11 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT &lt;/span&gt;&lt;span class="fld"&gt;table_name, cid, name&amp;nbsp;&amp;nbsp;&lt;span class="kwl"&gt;AS&lt;/span&gt;&amp;nbsp;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;type, "notnull", dflt_value, pk&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_table_xinfo&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ORDER BY&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;SELECT &lt;/span&gt;&lt;span class="fld"&gt;table_name, cid, name&amp;nbsp;&amp;nbsp;&lt;span class="kwl"&gt;AS&lt;/span&gt;&amp;nbsp;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;type, "notnull", dflt_value, pk&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;FROM &lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_table_xinfo&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;ORDER BY &lt;/span&gt;&lt;span class="fld"&gt;table_name, cid&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
     &lt;/div&gt;
   &lt;/body&gt;

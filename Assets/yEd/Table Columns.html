@@ -50,10 +50,10 @@
   <body>
     <div class="code">
       <span class="tab">tables</span> <span class="kwl">AS (</span>&nbsp;<br />
-      <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
-      <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;FROM</span> <span class="tab">sqlite_master</span>&nbsp;<br />
-      <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;WHERE</span> <span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
-      <span class="kwl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND</span> <span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
       <span class="kwl">)</span>&nbsp;<br />
     </div>
   </body>
@@ -76,13 +76,12 @@
   <body>
     <div class="code">
       <span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
-      <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;SELECT </span><span class="fld">table_name, cid, name&nbsp;&nbsp;<span class="kwl">AS</span>&nbsp;col_name,</span>&nbsp;<br />
-      <span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span>&nbsp;<br />
-      <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;FROM</span> <span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
-      <span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
-      <span class="kwl">&nbsp;&nbsp;&nbsp;&nbsp;ORDER BY</span> <span class="fld">table_name, cid</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, cid, name&nbsp;&nbsp;<span class="kwl">AS</span>&nbsp;col_name,</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, cid</span>&nbsp;<br />
       <span class="kwl">)</span>&nbsp;<br />
     </div>
   </body>
 </html>
-
