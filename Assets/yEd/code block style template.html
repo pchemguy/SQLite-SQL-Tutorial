@@ -110,7 +110,8 @@
       .tab {color: #FF00FF; font-weight: bold;} <!-- Table name -->
       .fld {color: #808000; font-weight: bold;} <!-- Field name -->
       .prc {color: #000080; font-weight: bold;} <!-- Function name -->
-      .lit {color: #00C000;}                    <!-- Literal value -->
+      .lit {color: #00C000; font-weight: bold;} <!-- Literal value -->
+      .gry {color: #B0B0B0; font-weight: bold;} <!-- Grayed out -->
     </style>
   </head>
   <body>
@@ -121,12 +122,12 @@
         <tr>
           <td>
             <span class="prc">pragma_table_xinfo</span><br />
-            <span class="prc">pragma_foreign_key_list</span><br />
-            <span class="prc">pragma_index_list</span><br />
+            <span class="gry">pragma_foreign_key_list</span><br />
+            <span class="gry">pragma_index_list</span><br />
           <td>
             <span class="kwd">(</span><span class="tab">tables</span><b>.</b><span class="fld">table_name</span><span class="kwd">)</span>&nbsp;<br />
-            <span class="kwd">(</span><span class="tab">tables</span><b>.</b><span class="fld">table_name</span><span class="kwd">)</span>&nbsp;<br />
-            <span class="kwd">(</span><span class="tab">tables</span><b>.</b><span class="fld">table_name</span><span class="kwd">)</span>&nbsp;<br />
+            <span class="gry">(tables.table_name)</span>&nbsp;<br />
+            <span class="gry">(tables.table_name)</span>&nbsp;<br />
           </td>
         </tr>
       </tbody>

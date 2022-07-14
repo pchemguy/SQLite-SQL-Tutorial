@@ -61,8 +61,7 @@
       .tab {color: #FF00FF; font-weight: bold;} &lt;!-- Table name --&gt;
       .fld {color: #808000; font-weight: bold;} &lt;!-- Field name --&gt;
       .prc {color: #000080; font-weight: bold;} &lt;!-- Function name --&gt;
-      .lit {color: #00C000; font-weight: bold;} &lt;!-- Literal value --&gt;
-      .gry {color: #B0B0B0; font-weight: bold;} &lt;!-- Grayed out --&gt;
+      .lit {color: #00C000;}                    &lt;!-- Literal value --&gt;
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
@@ -73,12 +72,12 @@
         &lt;tr&gt;
           &lt;td&gt;
             &lt;span class="prc"&gt;pragma_table_xinfo&lt;/span&gt;&lt;br /&gt;
-            &lt;span class="gry"&gt;pragma_foreign_key_list&lt;/span&gt;&lt;br /&gt;
-            &lt;span class="gry"&gt;pragma_index_list&lt;/span&gt;&lt;br /&gt;
+            &lt;span class="prc"&gt;pragma_foreign_key_list&lt;/span&gt;&lt;br /&gt;
+            &lt;span class="prc"&gt;pragma_index_list&lt;/span&gt;&lt;br /&gt;
           &lt;td&gt;
             &lt;span class="kwd"&gt;(&lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;&lt;span class="kwd"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-            &lt;span class="gry"&gt;(tables.table_name)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-            &lt;span class="gry"&gt;(tables.table_name)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+            &lt;span class="kwd"&gt;(&lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;&lt;span class="kwd"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+            &lt;span class="kwd"&gt;(&lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;&lt;span class="kwd"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
           &lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
@@ -150,8 +149,8 @@
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:StyleProperties>
-                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="EVENT_TYPE_TERMINATE"/>
@@ -174,8 +173,8 @@
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:StyleProperties>
-                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
+                <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="EVENT_TYPE_PLAIN"/>
@@ -186,6 +185,7 @@
       </graph>
     </node>
     <node id="n1">
+      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="95.61498787436108" width="290.55369568803263" x="790.3146936195211" y="-1510.7478296110392"/>
@@ -227,6 +227,7 @@
       </data>
     </node>
     <node id="n2">
+      <data key="d5"/>
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="106.59000000000015" width="332.28981139292677" x="790.3146936195211" y="-1386.4048199322513"/>
