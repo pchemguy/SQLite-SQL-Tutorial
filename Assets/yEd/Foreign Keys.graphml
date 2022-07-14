@@ -20,15 +20,15 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="344.375514169948" width="407.51569890205747" x="352.79899471746364" y="-1606.162019882437"/>
+              <y:Geometry height="336.375514169948" width="415.8356989020573" x="352.79899471746364" y="-1598.162019882437"/>
               <y:Fill color="#F2F0D8" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#00FFFF" verticalTextPosition="bottom" visible="true" width="407.51569890205747" x="0.0" y="0.0">CTE</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#00FFFF" verticalTextPosition="bottom" visible="true" width="415.8356989020573" x="0.0" y="0.0">CTE</y:NodeLabel>
               <y:Shape type="rectangle"/>
               <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
-              <y:BorderInsets bottom="11" bottomF="10.91714234476217" left="4" leftF="4.161053126552588" right="2" rightF="2.455170976381737" top="21" topF="20.767130861752776"/>
+              <y:BorderInsets bottom="11" bottomF="10.91714234476217" left="4" leftF="4.161053126552588" right="7" rightF="6.937802127178088" top="13" topF="12.767130861752776"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="616.3293207878767" width="609.6354166666663" x="641.6836048719865" y="-1579.4649844644296"/>
@@ -48,10 +48,10 @@
         <node id="n0::n0">
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-              <y:Geometry height="106.59000000000015" width="277.51736884920376" x="470.85952264313937" y="-1386.4048199322513"/>
+              <y:Geometry height="106.59000000000015" width="285.8373688492036" x="470.85952264313926" y="-1386.4048199322513"/>
               <y:Fill color="#FFFFE0" color2="#FFFFE0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="112.08778598710182" y="4.0">columns</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="116.24778598710174" y="4.0">columns</y:NodeLabel>
               <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="78.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="280.0" x="2.0" y="30.701171875">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
