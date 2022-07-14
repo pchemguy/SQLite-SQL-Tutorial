@@ -15,13 +15,14 @@ For example, consider the *pragma_table_xinfo* table-valued function, which take
 <p align="center"><b>Fig. 1. Structure of "Table Columns" Query</b></p>  
 
 
-<div style="position: relative; min-width: 100%; height: 100%; overflow: auto;">
+<div style="position: relative; min-width: 100%; height: 100%; overflow: auto; top: 0; bottom: 0; right: 0; left: 0;">
 <iframe id="TableColumnsHTML"
-        style="overflow-y: auto; position: absolute;"
+        style="overflow-y: auto; position: absolute; top: 0; bottom: 0; right: 0; left: 0;"
         width="100%" height="100%" scrolling="no" frameBorder="0"
         src="https://pchemguy.github.io/SQLite-SQL-Tutorial/Table%20Columns.html">
 </iframe>
 </div>
+
 
 
 <!-- References -->
