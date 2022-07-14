@@ -1,0 +1,8 @@
+div.code {font-family: Courier New, sans-serif; background-color: #F8F8F8}
+.kwd {color: #0000FF; font-weight: bold;} /* Dark keyword */
+.kwl {color: #00A0A0; font-weight: bold;} /* Light keyword */
+.typ {color: #800000; font-weight: bold;} /* Data type */
+.tab {color: #FF00FF; font-weight: bold;} /* Table name */
+.fld {color: #808000; font-weight: bold;} /* Field name */
+.prc {color: #000080; font-weight: bold;} /* Function name */
+.lit {color: #00C000; font-weight: bold;} /* Literal value */

@@ -1,14 +1,8 @@
 <html>
   <head>
+    <link rel="stylesheet" href="code_style.css">
     <style>
-      div.code {font-family: Courier New, sans-serif; background-color: #E0F0F0}
-      .kwd {color: #0000FF; font-weight: bold;} /* Dark keyword */
-      .kwl {color: #00A0A0; font-weight: bold;} /* Light keyword */
-      .typ {color: #800000; font-weight: bold;} /* Data type */
-      .tab {color: #FF00FF; font-weight: bold;} /* Table name */
-      .fld {color: #808000; font-weight: bold;} /* Field name */
-      .prc {color: #000080; font-weight: bold;} /* Function name */
-      .lit {color: #00C000; font-weight: bold;} /* Literal value */
+      div.code {background-color: #E0F0F0}
     </style>
   </head>
   <body>
@@ -16,12 +10,14 @@
       <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_foreign_keys</span> <span class="kwl">AS</span>&nbsp;<br />
       <span class="kwd">WITH</span>&nbsp;<br />
 
+      <div style="background-color: #F0E0F0">
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      </div>
 
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name <span class="kwl">AS</span> src_table, "from" <span class="kwl">AS</span> src_col,</span>&nbsp;<br />
