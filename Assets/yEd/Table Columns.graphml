@@ -207,7 +207,7 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;tbl_name&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="fld"&gt;table_name, sql&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT &lt;/span&gt;&lt;span class="fld"&gt;tbl_name &lt;span class="kwl"&gt;AS&lt;/span&gt; table_name, sql&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;sqlite_master&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;WHERE&lt;/span&gt; &lt;span class="fld"&gt;type&lt;/span&gt; = &lt;span class="lit"&gt;'table'&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;AND&lt;/span&gt; &lt;span class="fld"&gt;name&lt;/span&gt; &lt;span class="kwl"&gt;NOT LIKE&lt;/span&gt; &lt;span class="lit"&gt;'sqlite_%'&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
@@ -229,10 +229,10 @@
     <node id="n2">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="106.59000000000015" width="332.28981139292677" x="790.3146936195211" y="-1386.4048199322513"/>
+          <y:Geometry height="106.59000000000015" width="345.28981139292677" x="790.3146936195211" y="-1386.4048199322513"/>
           <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="333.0" x="-0.355094303536589" y="2.2950000000000728">&lt;html&gt;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="333.0" x="6.144905696463411" y="2.2950000000000728">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       div.code {font-family: Courier New, sans-serif;}
@@ -248,7 +248,7 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid, name&lt;/span&gt;&lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;AS&amp;nbsp;&lt;/span&gt;&lt;span class="fld"&gt;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT &lt;/span&gt;&lt;span class="fld"&gt;table_name, cid, name&amp;nbsp;&amp;nbsp;&lt;span class="kwl"&gt;AS&lt;/span&gt;&amp;nbsp;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;type, "notnull", dflt_value, pk&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_table_xinfo&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
@@ -272,7 +272,7 @@
       <data key="d10">
         <y:SplineEdge>
           <y:Path sx="42.359651562499835" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="460.7266573074312" y="-1536.218968546164"/>
+            <y:Point x="463.5938573074312" y="-1529.665368546164"/>
             <y:Point x="445.05987778667566" y="-1507.8541397134356"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -286,7 +286,8 @@
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="540.412170150051" y="-1425.2152674963645"/>
             <y:Point x="464.5354206974287" y="-1403.376992816257"/>
-            <y:Point x="458.46602649734564" y="-1355.6647964764668"/>
+            <y:Point x="454.37002649734563" y="-1356.8935964764669"/>
+            <y:Point x="483.90799999999984" y="-1344.522175945782"/>
           </y:Path>
           <y:LineStyle color="#0000C0" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
