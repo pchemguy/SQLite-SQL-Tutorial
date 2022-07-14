@@ -15,15 +15,10 @@ For example, consider the *pragma_table_xinfo* table-valued function, which take
 <p align="center"><b>Fig. 1. Structure of "Table Columns" Query</b></p>  
 
 
-<div class="code">
-  <span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
-  <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;SELECT</span> <span class="fld">table_name, cid, name</span><span class="kwl"> AS </span><span class="fld">col_name,</span>&nbsp;<br />
-  <span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span>&nbsp;<br />
-  <span class="kwd">&nbsp;&nbsp;&nbsp;&nbsp;FROM</span> <span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
-  <span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
-  <span class="kwl">&nbsp;&nbsp;&nbsp;&nbsp;ORDER BY</span> <span class="fld">table_name, cid</span>&nbsp;<br />
-  <span class="kwl">)</span>&nbsp;<br />
-</div>
+<iframe id="TableColumnsHTML"
+        width="100%" height="100%" frameBorder="0"
+        src="https://pchemguy.github.io/SQLite-SQL-Tutorial/Table%20Columns.html">
+</iframe>
 
 
 
