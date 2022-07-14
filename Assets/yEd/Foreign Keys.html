@@ -108,7 +108,7 @@
   </head>
   <body>
     <div class="code">
-      <span class="tab">fkeys</span> <span class="kwl">AS (</span>&nbsp;<br />
+      <span class="tab">foreign_keys</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">src_table, json_group_array(src_col) <span class="kwl">AS</span> src_cols,</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dst_table, json_group_array(dst_col) <span class="kwl">AS</span> dst_cols,</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_update, on_delete, fk_id</span>&nbsp;<br />

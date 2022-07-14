@@ -361,7 +361,7 @@
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div class="code"&gt;
-      &lt;span class="tab"&gt;fkeys&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="tab"&gt;foreign_keys&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;SELECT &lt;/span&gt;&lt;span class="fld"&gt;src_table, json_group_array(src_col) &lt;span class="kwl"&gt;AS&lt;/span&gt; src_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;dst_table, json_group_array(dst_col) &lt;span class="kwl"&gt;AS&lt;/span&gt; dst_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;on_update, on_delete, fk_id&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
