@@ -20,7 +20,7 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="502.13551416994824" width="420.8783300528538" x="352.79899471746364" y="-1598.162019882437"/>
+              <y:Geometry height="493.5659975033352" width="420.8783300528538" x="352.79899471746364" y="-1598.162019882437"/>
               <y:Fill color="#F2F0D8" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#00FFFF" verticalTextPosition="bottom" visible="true" width="420.8783300528538" x="0.0" y="0.0">CTE</y:NodeLabel>
@@ -28,7 +28,7 @@
               <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
-              <y:BorderInsets bottom="49" bottomF="48.784528792252104" left="4" leftF="4.161053126552588" right="10" rightF="9.817802127178197" top="13" topF="12.767130861752776"/>
+              <y:BorderInsets bottom="40" bottomF="40.21501212563908" left="4" leftF="4.161053126552588" right="10" rightF="9.817802127178197" top="13" topF="12.767130861752776"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="616.3293207878767" width="609.6354166666663" x="641.6836048719865" y="-1579.4649844644296"/>
@@ -68,7 +68,7 @@
   &lt;body&gt;
     &lt;div class="kwd" align="center"&gt;JOIN&lt;/div&gt;
     &lt;span class="prc"&gt;pragma_foreign_key_list&lt;/span&gt;&lt;span class="kwd"&gt;(&lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;&lt;span class="kwd"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-    &lt;span class="fld"&gt;#seq#&lt;/span&gt;
+    &lt;span class="kwd"&gt;ORDER BY &lt;/span&gt;&lt;span class="fld"&gt;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;#seq#&lt;/span&gt;
   &lt;/body&gt;
 &lt;/html&gt;
 <y:LabelModel>
@@ -233,7 +233,7 @@
         <node id="n0::n7">
           <data key="d6">
             <y:GenericNode configuration="com.yworks.bpmn.Event.withShadow">
-              <y:Geometry height="15.0" width="15.0" x="516.6637917923026" y="-1317.615933471976"/>
+              <y:Geometry height="15.0" width="15.0" x="585.2746203187583" y="-1317.615933471976"/>
               <y:Fill color="#FFFFFFE6" color2="#D4D4D4CC" transparent="false"/>
               <y:BorderStyle color="#B11F1F" type="line" width="1.0"/>
               <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" hasText="false" height="4.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="4.0" x="5.5" y="19.0">
@@ -413,7 +413,7 @@
       <data key="d10">
         <y:SplineEdge>
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="512.5160660462022" y="-1261.2684199925038"/>
+            <y:Point x="564.5160660462022" y="-1261.2684199925038"/>
             <y:Point x="459.98651659357995" y="-1242.2973453123964"/>
             <y:Point x="449.8211223934969" y="-1195.8139489726063"/>
             <y:Point x="479.3590958961512" y="-1183.4425284419215"/>
