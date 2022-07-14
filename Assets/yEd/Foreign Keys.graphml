@@ -20,15 +20,15 @@
         <y:ProxyAutoBoundsNode>
           <y:Realizers active="0">
             <y:GroupNode>
-              <y:Geometry height="446.26434229494816" width="410.51569890205747" x="352.79899471746364" y="-1606.162019882437"/>
+              <y:Geometry height="344.375514169948" width="407.51569890205747" x="352.79899471746364" y="-1606.162019882437"/>
               <y:Fill color="#F2F0D8" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#00FFFF" verticalTextPosition="bottom" visible="true" width="410.51569890205747" x="0.0" y="0.0">CTE</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="node_width" backgroundColor="#B7B69E" borderDistance="0.0" fontFamily="Dialog" fontSize="15" fontStyle="bold" hasLineColor="false" height="22.37646484375" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#00FFFF" verticalTextPosition="bottom" visible="true" width="407.51569890205747" x="0.0" y="0.0">CTE</y:NodeLabel>
               <y:Shape type="rectangle"/>
               <y:DropShadow color="#D2D2D2" offsetX="4" offsetY="4"/>
               <y:State closed="false" closedHeight="50.0" closedWidth="50.0" innerGraphDisplayEnabled="false"/>
               <y:Insets bottom="5" bottomF="5.0" left="5" leftF="5.0" right="5" rightF="5.0" top="5" topF="5.0"/>
-              <y:BorderInsets bottom="143" bottomF="142.91714234476217" left="4" leftF="4.161053126552588" right="2" rightF="2.455170976381737" top="21" topF="20.767130861752776"/>
+              <y:BorderInsets bottom="11" bottomF="10.91714234476217" left="4" leftF="4.161053126552588" right="2" rightF="2.455170976381737" top="21" topF="20.767130861752776"/>
             </y:GroupNode>
             <y:GroupNode>
               <y:Geometry height="616.3293207878767" width="609.6354166666663" x="641.6836048719865" y="-1579.4649844644296"/>
@@ -48,11 +48,11 @@
         <node id="n0::n0">
           <data key="d6">
             <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-              <y:Geometry height="78.59000000000015" width="277.51736884920376" x="470.8595226431393" y="-1386.4048199322513"/>
+              <y:Geometry height="106.59000000000015" width="277.51736884920376" x="470.85952264313937" y="-1386.4048199322513"/>
               <y:Fill color="#FFFFE0" color2="#FFFFE0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="112.08778598710188" y="4.0">columns</y:NodeLabel>
-              <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="46.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="283.0" x="2.0" y="30.701171875">&lt;html&gt;
+              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="112.08778598710182" y="4.0">columns</y:NodeLabel>
+              <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="78.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="280.0" x="2.0" y="30.701171875">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       .kwd {color: #0000FF; font-weight: bold;} &lt;!-- Dark keyword --&gt;
@@ -61,7 +61,8 @@
       .tab {color: #FF00FF; font-weight: bold;} &lt;!-- Table name --&gt;
       .fld {color: #808000; font-weight: bold;} &lt;!-- Field name --&gt;
       .prc {color: #000080; font-weight: bold;} &lt;!-- Function name --&gt;
-      .lit {color: #00C000;}                    &lt;!-- Literal value --&gt;
+      .lit {color: #00C000; font-weight: bold;} &lt;!-- Literal value --&gt;
+      .gry {color: #B0B0B0; font-weight: bold;} &lt;!-- Grayed out --&gt;
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
@@ -71,9 +72,13 @@
       &lt;tbody&gt;
         &lt;tr&gt;
           &lt;td&gt;
-            &lt;span class="prc"&gt;pragma_foreign_key_list&lt;/span&gt;&lt;br /&gt;
+            &lt;span class="prc"&gt;pragma_table_xinfo&lt;/span&gt;&lt;br /&gt;
+            &lt;span class="gry"&gt;pragma_foreign_key_list&lt;/span&gt;&lt;br /&gt;
+            &lt;span class="gry"&gt;pragma_index_list&lt;/span&gt;&lt;br /&gt;
           &lt;td&gt;
             &lt;span class="kwd"&gt;(&lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;&lt;span class="kwd"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+            &lt;span class="gry"&gt;(tables.table_name)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+            &lt;span class="gry"&gt;(tables.table_name)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
           &lt;/td&gt;
         &lt;/tr&gt;
       &lt;/tbody&gt;
@@ -202,7 +207,7 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;tbl_name&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="fld"&gt;table_name, sql&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT &lt;/span&gt;&lt;span class="fld"&gt;tbl_name &lt;span class="kwl"&gt;AS&lt;/span&gt; table_name, sql&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;sqlite_master&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;WHERE&lt;/span&gt; &lt;span class="fld"&gt;type&lt;/span&gt; = &lt;span class="lit"&gt;'table'&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;AND&lt;/span&gt; &lt;span class="fld"&gt;name&lt;/span&gt; &lt;span class="kwl"&gt;NOT LIKE&lt;/span&gt; &lt;span class="lit"&gt;'sqlite_%'&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
@@ -224,10 +229,10 @@
     <node id="n2">
       <data key="d6">
         <y:ShapeNode>
-          <y:Geometry height="106.59000000000015" width="342.68981139292686" x="790.3146936195211" y="-1386.4048199322513"/>
+          <y:Geometry height="106.59000000000015" width="345.28981139292677" x="790.3146936195211" y="-1386.4048199322513"/>
           <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="340.0" x="1.3449056964634565" y="2.2950000000000728">&lt;html&gt;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="102.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="333.0" x="6.144905696463411" y="2.2950000000000728">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       div.code {font-family: Courier New, sans-serif;}
@@ -243,10 +248,10 @@
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid, name&lt;/span&gt;&lt;span class="kwl"&gt; AS &lt;/span&gt;&lt;span class="fld"&gt;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;SELECT &lt;/span&gt;&lt;span class="fld"&gt;table_name, cid, name&amp;nbsp;&amp;nbsp;&lt;span class="kwl"&gt;AS&lt;/span&gt;&amp;nbsp;col_name,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;type, "notnull", dflt_value, pk&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwd"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;FROM&lt;/span&gt; &lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_foreign_key_list&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
+      &lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_table_xinfo&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;ORDER BY&lt;/span&gt; &lt;span class="fld"&gt;table_name, cid&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
     &lt;/div&gt;
@@ -267,7 +272,7 @@
       <data key="d10">
         <y:SplineEdge>
           <y:Path sx="42.359651562499835" sy="0.0" tx="0.0" ty="0.0">
-            <y:Point x="460.7266573074312" y="-1536.218968546164"/>
+            <y:Point x="463.5938573074312" y="-1529.665368546164"/>
             <y:Point x="445.05987778667566" y="-1507.8541397134356"/>
           </y:Path>
           <y:LineStyle color="#000000" type="line" width="1.0"/>
@@ -281,7 +286,8 @@
           <y:Path sx="0.0" sy="0.0" tx="0.0" ty="0.0">
             <y:Point x="540.412170150051" y="-1425.2152674963645"/>
             <y:Point x="464.5354206974287" y="-1403.376992816257"/>
-            <y:Point x="458.46602649734564" y="-1355.6647964764668"/>
+            <y:Point x="454.37002649734563" y="-1356.8935964764669"/>
+            <y:Point x="483.90799999999984" y="-1344.522175945782"/>
           </y:Path>
           <y:LineStyle color="#0000C0" type="line" width="1.0"/>
           <y:Arrows source="none" target="standard"/>
