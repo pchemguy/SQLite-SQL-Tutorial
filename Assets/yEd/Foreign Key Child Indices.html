@@ -1,0 +1,131 @@
+<html>
+  <head>
+    <style  type="text/css">
+      .tg    {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        /*  
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+        */
+        text-align: left;
+        vertical-align: top
+        overflow: hidden;
+        padding: 5px 5px;
+        word-break: normal;
+      }
+      .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        /*
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+        */
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="tg">
+      <thead>
+        <tr>
+          <th>src_table</th>
+          <th style="font-weight: bold; background-color: #FFFFEE; color: blue;">src_cols</th>
+          <th>dst_table</th>
+          <th>dst_cols</th>
+          <th>on_update</th>
+          <th>on_delete</th>
+          <th>fk_id</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+
+<html>
+  <head>
+    <style  type="text/css">
+      .tg    {
+        border-collapse: collapse;
+        border-spacing: 0;
+      }
+      .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        /*  
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+        */
+        text-align: left;
+        vertical-align: top
+        overflow: hidden;
+        padding: 5px 5px;
+        word-break: normal;
+      }
+      .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        /*
+          font-family: Arial, sans-serif;
+          font-size: 14px;
+        */
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <table class="tg">
+      <thead>
+        <tr>
+          <th>table_name</th>
+          <th>index_name</th>
+          <th style="font-weight: bold; background-color: #FFFFEE; color: blue;">col_names</th>
+          <th>unique</th>
+          <th>origin</th>
+          <th>partial</th>
+          <th>sql</th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+  </body>
+</html>
+
+
+
+<html>
+  <head>
+    <style>
+      .kwd {color: #0000FF; font-weight: bold;} <!-- Dark keyword -->
+      .kwl {color: #00A0A0; font-weight: bold;} <!-- Light keyword -->
+      .typ {color: #800000; font-weight: bold;} <!-- Data type -->
+      .tab {color: #FF00FF; font-weight: bold;} <!-- Table name -->
+      .fld {color: #808000; font-weight: bold;} <!-- Field name -->
+      .prc {color: #000080; font-weight: bold;} <!-- Function name -->
+      .lit {color: #00C000; font-weight: bold;} <!-- Literal value -->
+      .gry {color: #B0B0B0; font-weight: bold;} <!-- Grayed out -->
+    </style>
+  </head>
+  <body>
+    <div class="kwd" align="center">LEFT JOIN</div>
+    <span class="kwd">ON </span><span class="fld"><span class="fld">src_table = table_name <span class="kwl">AND&nbsp;</span> col_names <span class="prc">like</span> src_cols </span><span class="prc">||</span> <span class="lit">'%'</span>
+  </body>
+</html>
