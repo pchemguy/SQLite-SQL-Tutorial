@@ -24,23 +24,23 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t, </span><span class="prc">pragma_index_list</span>(<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">index_columns</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld"> il.*, name <span class="kwl">AS</span> col_name, cid, seqno</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_list</span> <span class="kwl">AS</span> <span class="tab">il, </span><span class="prc">pragma_index_info</span>(<span class="tab">il</span><b>.</b><span class="fld">index_name</span>)&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">index_name, seqno</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">brief_indices</span> <span class="kwl">AS (</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">noddl_indices</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, index_name,</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">json_group_array</span>(col_name) <span class="kwl">AS</span> col_names,</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unique", origin, partial</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">columns</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_columns</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">GROUP BY </span><span class="fld">index_name</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
 
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">indices</span> <span class="kwl">AS (</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="tab">bi</span><span class="fld">.*, sm.sql</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">brief_indices <span class="kwl">AS</span> bi, sqlite_master <span class="kwl">AS</span> sm</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">noddl_indices <span class="kwl">AS</span> bi, sqlite_master <span class="kwl">AS</span> sm</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'index' </span><span class="kwl">AND </span><span class="fld">index_name = name</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, index_name</span>&nbsp;<br />
       &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span>&nbsp;<br />

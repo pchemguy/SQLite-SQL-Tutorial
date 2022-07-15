@@ -189,7 +189,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="95.61498787436108" width="290.55369568803263" x="790.3146936195211" y="-1510.7478296110392"/>
-          <y:Fill color="#F0F0F0" transparent="false"/>
+          <y:Fill color="#F0E0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="88.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="277.0" x="6.776847844016288" y="3.807493937180652">&lt;html&gt;
   &lt;head&gt;

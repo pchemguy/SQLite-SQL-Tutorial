@@ -51,7 +51,7 @@
               <y:Geometry height="90.44378787436108" width="265.35736884920357" x="470.85952264313926" y="-1386.404819932251"/>
               <y:Fill color="#FFFFE0" color2="#FFFFE0" transparent="false"/>
               <y:BorderStyle color="#000000" type="line" width="1.0"/>
-              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="53.341796875" x="106.00778598710178" y="4.0">columns</y:NodeLabel>
+              <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="12" fontStyle="bold" hasLineColor="false" height="18.701171875" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#FF00FF" verticalTextPosition="bottom" visible="true" width="84.033203125" x="90.66208286210178" y="4.0">fkey_columns</y:NodeLabel>
               <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="52.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="top" visible="true" width="262.0" x="2.0" y="30.701171875">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
@@ -221,8 +221,8 @@
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:StyleProperties>
-                <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="EVENT_TYPE_TERMINATE"/>
@@ -245,8 +245,8 @@
                 </y:ModelParameter>
               </y:NodeLabel>
               <y:StyleProperties>
-                <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.line.color" value="#000000"/>
+                <y:Property class="com.yworks.yfiles.bpmn.view.EventCharEnum" name="com.yworks.bpmn.characteristic" value="EVENT_CHARACTERISTIC_END"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill2" value="#d4d4d4cc"/>
                 <y:Property class="java.awt.Color" name="com.yworks.bpmn.icon.fill" value="#ffffffe6"/>
                 <y:Property class="com.yworks.yfiles.bpmn.view.BPMNTypeEnum" name="com.yworks.bpmn.type" value="EVENT_TYPE_PLAIN"/>
@@ -260,7 +260,7 @@
       <data key="d6">
         <y:ShapeNode>
           <y:Geometry height="95.61498787436108" width="290.55369568803263" x="790.3146936195211" y="-1510.7478296110392"/>
-          <y:Fill color="#F0F0F0" transparent="false"/>
+          <y:Fill color="#F0E0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
           <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="88.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="277.0" x="6.776847844016288" y="3.807493937180652">&lt;html&gt;
   &lt;head&gt;
@@ -303,25 +303,25 @@
           <y:Geometry height="120.67000000000007" width="432.96981139292683" x="790.3146936195211" y="-1386.4048199322513"/>
           <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="116.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="424.0" x="4.484905696463443" y="2.3350000000000364">&lt;html&gt;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="116.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="431.0" x="0.9849056964634428" y="2.3350000000000364">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       div.code {font-family: Courier New, sans-serif;}
-      .kwd {color: #0000FF; font-weight: bold;} &lt;!-- Dark keyword --&gt;
-      .kwl {color: #00A0A0; font-weight: bold;} &lt;!-- Light keyword --&gt;
-      .typ {color: #800000; font-weight: bold;} &lt;!-- Data type --&gt;
-      .tab {color: #FF00FF; font-weight: bold;} &lt;!-- Table name --&gt;
-      .fld {color: #808000; font-weight: bold;} &lt;!-- Field name --&gt;
-      .prc {color: #000080; font-weight: bold;} &lt;!-- Function name --&gt;
-      .lit {color: #00C000; font-weight: bold;} &lt;!-- Literal value --&gt;
+      .kwd {color: #0000FF; font-weight: bold;} /* Dark keyword */
+      .kwl {color: #00A0A0; font-weight: bold;} /* Light keyword */
+      .typ {color: #800000; font-weight: bold;} /* Data type */
+      .tab {color: #FF00FF; font-weight: bold;} /* Table name */
+      .fld {color: #808000; font-weight: bold;} /* Field name */
+      .prc {color: #000080; font-weight: bold;} /* Function name */
+      .lit {color: #00C000; font-weight: bold;} /* Literal value */
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div class="code"&gt;
-      &lt;span class="tab"&gt;columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &lt;span class="tab"&gt;fkey_columns&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;SELECT &lt;/span&gt;&lt;span class="fld"&gt;table_name &lt;span class="kwl"&gt;AS&lt;/span&gt; src_table, "from" &lt;span class="kwl"&gt;AS&lt;/span&gt; src_col,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"table" &lt;span class="kwl"&gt;AS&lt;/span&gt; dst_table, "to" &lt;span class="kwl"&gt;AS&lt;/span&gt; dst_col,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;on_update, on_delete, id &lt;span class="kwl"&gt;AS&lt;/span&gt; fk_id, seq &lt;span class="kwl"&gt;AS&lt;/span&gt; fk_seq&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;on_update, on_delete, id &lt;span class="kwl"&gt;&amp;nbsp;AS&lt;/span&gt; fk_id, seq &lt;span class="kwl"&gt;AS&lt;/span&gt; fk_seq&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;FROM &lt;/span&gt;&lt;span class="tab"&gt;tables&lt;/span&gt; &lt;span class="kwl"&gt;AS&lt;/span&gt; &lt;span class="tab"&gt;t,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="prc"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;pragma_foreign_key_list&lt;/span&gt; (&lt;span class="tab"&gt;t&lt;/span&gt;&lt;b&gt;.&lt;/b&gt;&lt;span class="fld"&gt;table_name&lt;/span&gt;)&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;ORDER BY &lt;/span&gt;&lt;span class="fld"&gt;src_table, fk_id, fk_seq&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
@@ -346,26 +346,26 @@
           <y:Geometry height="120.67000000000007" width="432.96981139292683" x="788.7448914923428" y="-1225.266022379102"/>
           <y:Fill color="#F0F0F0" transparent="false"/>
           <y:BorderStyle hasColor="false" raised="false" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="116.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="431.0" x="0.9849056964634428" y="2.3350000000000364">&lt;html&gt;
+          <y:NodeLabel alignment="center" autoSizePolicy="content" fontFamily="Dialog" fontSize="12" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="116.0" horizontalTextPosition="center" iconTextGap="4" modelName="custom" textColor="#000000" verticalTextPosition="bottom" visible="true" width="438.0" x="-2.515094303536557" y="2.3350000000000364">&lt;html&gt;
   &lt;head&gt;
     &lt;style&gt;
       div.code {font-family: Courier New, sans-serif;}
-      .kwd {color: #0000FF; font-weight: bold;} &lt;!-- Dark keyword --&gt;
-      .kwl {color: #00A0A0; font-weight: bold;} &lt;!-- Light keyword --&gt;
-      .typ {color: #800000; font-weight: bold;} &lt;!-- Data type --&gt;
-      .tab {color: #FF00FF; font-weight: bold;} &lt;!-- Table name --&gt;
-      .fld {color: #808000; font-weight: bold;} &lt;!-- Field name --&gt;
-      .prc {color: #000080; font-weight: bold;} &lt;!-- Function name --&gt;
-      .lit {color: #00C000; font-weight: bold;} &lt;!-- Literal value --&gt;
+      .kwd {color: #0000FF; font-weight: bold;} /* Dark keyword */
+      .kwl {color: #00A0A0; font-weight: bold;} /* Light keyword */
+      .typ {color: #800000; font-weight: bold;} /* Data type */
+      .tab {color: #FF00FF; font-weight: bold;} /* Table name */
+      .fld {color: #808000; font-weight: bold;} /* Field name */
+      .prc {color: #000080; font-weight: bold;} /* Function name */
+      .lit {color: #00C000; font-weight: bold;} /* Literal value */
     &lt;/style&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;div class="code"&gt;
       &lt;span class="tab"&gt;foreign_keys&lt;/span&gt; &lt;span class="kwl"&gt;AS (&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;SELECT &lt;/span&gt;&lt;span class="fld"&gt;src_table, json_group_array(src_col) &lt;span class="kwl"&gt;AS&lt;/span&gt; src_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;dst_table, json_group_array(dst_col) &lt;span class="kwl"&gt;AS&lt;/span&gt; dst_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;SELECT &lt;/span&gt;&lt;span class="fld"&gt;src_table, json_group_array(src_col) &lt;span class="kwl"&gt;&amp;nbsp;AS&lt;/span&gt; src_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;dst_table, json_group_array(dst_col) &lt;span class="kwl"&gt;&amp;nbsp;AS&lt;/span&gt; dst_cols,&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="fld"&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;on_update, on_delete, fk_id&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
-      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;FROM &lt;/span&gt;&lt;span class="tab"&gt;columns&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
+      &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;FROM &lt;/span&gt;&lt;span class="tab"&gt;fkey_columns&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;GROUP BY &lt;/span&gt;&lt;span class="fld"&gt;src_table, fk_id&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;span class="kwd"&gt;ORDER BY &lt;/span&gt;&lt;span class="fld"&gt;src_table, dst_table&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
       &lt;span class="kwl"&gt;)&lt;/span&gt;&amp;nbsp;&lt;br /&gt;
