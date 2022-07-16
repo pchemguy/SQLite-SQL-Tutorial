@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Basic DB Meta
+title: Basic DB Metadata
 nav_order: 3
 parent: SQLite Metadata
 permalink: /meta/db-basic

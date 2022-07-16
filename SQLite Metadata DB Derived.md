@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Derived DB Meta and Modular SQL with CTE
+title: Derived DB Metadata and Modular SQL with CTE
 nav_order: 4
 parent: SQLite Metadata
 permalink: /meta/db-derived-cte
