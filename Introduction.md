@@ -17,9 +17,7 @@ CTEs provide a powerful means for structuring complex queries into simple reusab
 
 ### Developer tools
 
-I have tried several GUI database administration (DBA) tools. Most of the time, I use [SQLiteStudio][] and [DB Browser for SQLite][]. Both are feature-rich solid DBA tools. Among other features, SQLiteStudio has a powerful multiple-document interface and better support for extended DDL and multiple database connections. DB Browser for SQLite, on the other hand, provides instant search and multi-tabbed SQL script editor with code highlighting and completion. Occasionally, I use [DBeaver][] (a commercial tool with a community open source edition) and [HeidiSQL][].
-
-I use [StackEdit.io][] as the primary Markdown editor, [Tables Generator][] to prepare Markdown-formatted tables, and [yEd][] for diagrams.
+I have tried several GUI database administration (DBA) tools. Most of the time, I use [SQLiteStudio][] and [DB Browser for SQLite][]. Both are feature-rich solid DBA tools. Among other features, SQLiteStudio has a powerful multiple-document interface and better support for extended DDL and multiple database connections. DB Browser for SQLite, on the other hand, provides instant search and multi-tabbed SQL script editor with code highlighting and completion. Occasionally, I use [DBeaver][] (a commercial tool with a community open source edition) and [HeidiSQL][]. I use [StackEdit.io][] as the primary Markdown editor, [Tables Generator][] to prepare Markdown-formatted tables, and [yEd][] for diagrams.
 
 <!--
 Summary of topics:
