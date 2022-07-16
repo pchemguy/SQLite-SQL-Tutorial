@@ -7,37 +7,37 @@
   </head>
   <body>
     <div class="code">
-      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_foreign_keys</span> <span class="kwl">AS</span>&nbsp;<br />
-      <span class="kwd">WITH</span>&nbsp;<br />
+      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_foreign_keys</span> <span class="kwl">AS</span><br />
+      <span class="kwd">WITH</span><br />
 
       <div style="background-color: #F0E0F0">
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
       </div>
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">fkey_columns</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name <span class="kwl">AS</span> src_table, "from" <span class="kwl">AS</span> src_col,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"table" <span class="kwl">AS</span> dst_table, "to" <span class="kwl">AS</span> dst_col,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_update, on_delete, id <span class="kwl">AS</span> fk_id, seq <span class="kwl">AS</span> fk_seq</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_foreign_key_list</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">src_table, fk_id, fk_seq</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">fkey_columns</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name <span class="kwl">AS</span> src_table, "from" <span class="kwl">AS</span> src_col,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"table" <span class="kwl">AS</span> dst_table, "to" <span class="kwl">AS</span> dst_col,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_update, on_delete, id <span class="kwl">AS</span> fk_id, seq <span class="kwl">AS</span> fk_seq</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_foreign_key_list</span> (<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">src_table, fk_id, fk_seq</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">foreign_keys</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">src_table, json_group_array(src_col) <span class="kwl">AS</span> src_cols,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dst_table, json_group_array(dst_col) <span class="kwl">AS</span> dst_cols,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_update, on_delete, fk_id</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">fkey_columns</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">GROUP BY </span><span class="fld">src_table, fk_id</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">src_table, dst_table</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">foreign_keys</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">src_table, json_group_array(src_col) <span class="kwl">AS</span> src_cols,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dst_table, json_group_array(dst_col) <span class="kwl">AS</span> dst_cols,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_update, on_delete, fk_id</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">fkey_columns</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">GROUP BY </span><span class="fld">src_table, fk_id</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">src_table, dst_table</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span><br />
 
-      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">foreign_keys;</span>&nbsp;<br />
+      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">foreign_keys;</span><br />
     </div>
   </body>
 </html>

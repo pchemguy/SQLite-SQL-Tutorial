@@ -4,27 +4,27 @@
   </head>
   <body>
     <div class="code">
-      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_columns</span> <span class="kwl">AS</span>&nbsp;<br />
-      <span class="kwd">WITH</span>&nbsp;<br />
+      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_columns</span> <span class="kwl">AS</span><br />
+      <span class="kwd">WITH</span><br />
 
       <div style="background-color: #F0E0F0">
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
       </div>
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">columns</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, cid, name<span class="kwl"> AS </span>col_name,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span>(<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, cid</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">columns</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, cid, name<span class="kwl"> AS </span>col_name,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type, "notnull", dflt_value, pk</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pragma_table_xinfo</span>(<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, cid</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span><br />
 
-      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">columns;</span>&nbsp;<br />
+      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">columns;</span><br />
     </div>
   </body>
 </html>

@@ -7,45 +7,45 @@
   </head>
   <body>
     <div class="code">
-      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_indices</span> <span class="kwl">AS</span>&nbsp;<br />
-      <span class="kwd">WITH</span>&nbsp;<br />
+      <span class="kwd">CREATE VIEW </span><span class="tab">service_meta_indices</span> <span class="kwl">AS</span><br />
+      <span class="kwd">WITH</span><br />
 
       <div style="background-color: #F0E0F0">
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">tables</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">tbl_name <span class="kwl">AS</span> table_name, sql</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">sqlite_master</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'table'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">&nbsp;&nbsp;AND </span><span class="fld">name</span> <span class="kwl">NOT LIKE</span> <span class="lit">'sqlite_%'</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
       </div>
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">index_list</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, name <span class="kwl">AS</span> index_name, "unique", origin, partial</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t, </span><span class="prc">pragma_index_list</span>(<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">index_list</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, name <span class="kwl">AS</span> index_name, "unique", origin, partial</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">tables</span> <span class="kwl">AS</span> <span class="tab">t, </span><span class="prc">pragma_index_list</span>(<span class="tab">t</span><b>.</b><span class="fld">table_name</span>)<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">index_columns</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld"> il.*, name <span class="kwl">AS</span> col_name, cid, seqno</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_list</span> <span class="kwl">AS</span> <span class="tab">il, </span><span class="prc">pragma_index_info</span>(<span class="tab">il</span><b>.</b><span class="fld">index_name</span>)&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">index_name, seqno</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">index_columns</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld"> il.*, name <span class="kwl">AS</span> col_name, cid, seqno, "desc", coll, "key"</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_list</span> <span class="kwl">AS</span> <span class="tab">il, </span><span class="prc">pragma_index_xinfo</span>(<span class="tab">il</span><b>.</b><span class="fld">index_name</span>)<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">index_name, seqno</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">noddl_indices</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, index_name,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">json_group_array</span>(col_name) <span class="kwl">AS</span> col_names,</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unique", origin, partial</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_columns</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">GROUP BY </span><span class="fld">index_name</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">noddl_indices</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="fld">table_name, index_name,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="prc">json_group_array</span>(col_name) <span class="kwl">AS</span> col_names,</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="fld">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"unique", origin, partial</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">index_columns</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">GROUP BY </span><span class="fld">index_name</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">),</span><br />
 
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">indices</span> <span class="kwl">AS (</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="tab">bi</span><span class="fld">.*, sm.sql</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">noddl_indices <span class="kwl">AS</span> bi, sqlite_master <span class="kwl">AS</span> sm</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'index' </span><span class="kwl">AND </span><span class="fld">index_name = name</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, index_name</span>&nbsp;<br />
-      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span>&nbsp;<br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="tab">indices</span> <span class="kwl">AS (</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">SELECT </span><span class="tab">bi</span><span class="fld">.*, sm.sql</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">FROM </span><span class="tab">noddl_indices <span class="kwl">AS</span> bi, sqlite_master <span class="kwl">AS</span> sm</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">WHERE </span><span class="fld">type</span> = <span class="lit">'index' </span><span class="kwl">AND </span><span class="fld">index_name = name</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="kwd">ORDER BY </span><span class="fld">table_name, index_name</span><br />
+      &nbsp;&nbsp;&nbsp;&nbsp;<span class="kwl">)</span><br />
 
-      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">indices;</span>&nbsp;<br />
+      <span class="kwd">SELECT <span class="fld">*</span> FROM </span><span class="tab">indices;</span><br />
     </div>
   </body>
 </html>
