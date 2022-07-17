@@ -18,6 +18,7 @@ FROM json_each('["' || replace('usr/share/man', '/', '", "') || '"]') AS terms;
 ~~~
 
 **Output**
+
 | term_id | term  |
 |---------|-------|
 | 1       | usr   |
