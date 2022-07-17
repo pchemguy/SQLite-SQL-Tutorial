@@ -1,13 +1,4 @@
----
-layout: default
-title: Introduction
-nav_order: 1
-permalink: /
----
-
 This project discusses select practical SQL problems and the associated solutions. I primarily use this project to organize my acquired SQL/[SQLite][] knowledge. A separate project (the [SQLiteC for VBA][SQLiteCAdoReflectVBA] library) serves a similar purpose for the C-API interface of the library and its integration into an information management application. My interest in SQLite is motivated by the need for local personal and research information management. I am particularly interested in use cases necessitating short database response times (as measured by the application) on the order of 10-20 ms and up to 50-100 ms for relatively simple and more complicated queries, respectively. Realistically, only an embedded database engine might be able to meet these specs, hence my interest in SQLite and the scope of the discussed topics. While I attempt to make the material accessible, this tutorial may not be suitable for first-timers.
-
-### Structured developement strategies and separation of concerns
 
 Because of the [target uses][SQLite Apps], SQLite lacks several useful features provided by more powerful client/server RDBMS engines, such as stored procedures, support for variables, and dynamic SQL. The absence of these features limits the ability to develop structured/modularized SQL code and separate the internal database organization and application business logic. Another possible concern is associated with SQLite's limited string manipulation capabilities.
 
