@@ -37,7 +37,9 @@ The combined query below consists of the two CTEs blocks and the following main 
 
 ### Debugging CTE queries
 
-Well-structured CTEs queries provide several advantages for designing complex queries, particularly in SQLite. On the one hand, individual WITH members are convenient building blocks, as illustrated later. On the other hand, CTEs enable several debugging options. The main query after the WITH clause can interrogate any WITH clause member. For instance, in the example above, the last line `SELECT * FROM tables` verifies the output of the *tables* query. Another option is replacing WITH members with immediate mocks having the same signature. The *table* query above has the output signature *table(table_name, sql)*, and the following mock replacement enables independent development of the two components.
+Well-structured CTEs queries provide several advantages for designing complex queries, particularly in SQLite. On the one hand, individual WITH members are convenient building blocks, as illustrated later. On the other hand, CTEs enable several debugging options, such as the ability of the main query after the WITH clause to interrogate any WITH clause member. For instance, in the example above, the last line `SELECT * FROM tables` verifies the output of the *tables* query.
+
+The names of the WITH clause member query and its returned columns form the signature of that code block. This signature effectively constitutes an interblock interface, as it abstracts the member's code and is the only detail used by other members. This well-defined interblock coupling permits swapping a code block with another one having the same signature, such as a mock immediate query. The *tables* query above has the signature *tables(table_name, sql)*, and the following mock replacement enables independent development of the two components.
 
 ~~~sql
     tables(table_name, sql) AS (
