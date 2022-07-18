@@ -30,13 +30,13 @@ There is one problem with this query and usage pattern, however. The *string_dat
 This way, a single string parameter passes an arbitrary number of input pairs (path variable and an associated ID) to the parameterized query. The number of required parameters no longer depends on the input, and the updated code can be black-boxed. The only remaining task is to add a new interface query, *json_object_data*, at the top and add code, converting *json_object_data* input to *string_data* format. The following snippet replaces the original *string_data* block:
 
 ~~~sql
-	json_object_data(json_str) AS (
-		VALUES
-			('{' || 
-			   '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
-			   '"2":"/dev/stderr/:/dev/stdout/"' ||
-			 '}')
-	),	
+    json_object_data(json_str) AS (
+        VALUES
+            ('{' || 
+               '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
+               '"2":"/dev/stderr/:/dev/stdout/"' ||
+             '}')
+    ),
     string_data AS (
         SELECT "key" AS string_id, "value" AS string
         FROM json_object_data AS jd, json_each(jd.json_str)
@@ -48,11 +48,11 @@ Furthermore, *json_object_data* and *string_data* can be collapsed, simplifying 
 ~~~sql
     string_data AS (
         SELECT "key" AS string_id, "value" AS string FROM json_each(
-			'{' || 
-			  '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
-			  '"2":"/dev/stderr/:/dev/stdout/"' ||
-			'}'
-		)
+            '{' || 
+              '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
+              '"2":"/dev/stderr/:/dev/stdout/"' ||
+            '}'
+        )
     ),
 ~~~
 
@@ -63,11 +63,11 @@ WITH
     params(sep, path_sep) AS (VALUES (':', '\/')),
     string_data AS (
         SELECT "key" AS string_id, "value" AS string FROM json_each(
-			'{' || 
-			  '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
-			  '"2":"/dev/stderr/:/dev/stdout/"' ||
-			'}'
-		)
+            '{' || 
+              '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
+              '"2":"/dev/stderr/:/dev/stdout/"' ||
+            '}'
+        )
     ),
     clean_strings AS (
         SELECT strs.string_id,
