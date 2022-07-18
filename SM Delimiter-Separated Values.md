@@ -3,7 +3,7 @@ layout: default
 title: Delimiter-Separated Values
 nav_order: 1
 parent: String Manipulation
-permalink: /strings/split-dvs
+permalink: /strings/split-dsv
 ---
 
 Note that the scripts in this section rely on the SQLite JSON library. In the latest version of SQLite, the JSON library is part of the core and is included in the build by default. Until recently, however, JSON has been developed as a loadable extension, which was not part of the default builds. Verify that the JSON functionality is available before using/adapting code from this tutorial (for example, use these [queries](/meta/engine)).
