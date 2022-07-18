@@ -38,9 +38,21 @@ This way, a single string parameter passes an arbitrary number of input pairs (p
 			 '}')
 	),	
     string_data AS (
-		SELECT json_terms."key" AS string_id, json_terms.value AS string
-		FROM json_object_data AS jd, json_tree(jd.json_str) AS json_terms
-	    WHERE json_terms.parent IS NOT NULL
+        SELECT "key" AS string_id, "value" AS string
+        FROM json_object_data AS jd, json_each(jd.json_str)
+    ),
+~~~
+
+Furthermore, *json_object_data* and *string_data* can be collapsed, simplifying the code. The new body of *string_data* includes a JSON parser:
+
+~~~sql
+    string_data AS (
+        SELECT "key" AS string_id, "value" AS string FROM json_each(
+			'{' || 
+			  '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
+			  '"2":"/dev/stderr/:/dev/stdout/"' ||
+			'}'
+		)
     ),
 ~~~
 
@@ -49,17 +61,13 @@ And the final query:
 ~~~sql
 WITH
     params(sep, path_sep) AS (VALUES (':', '\/')),
-	json_object_data(json_str) AS (
-		VALUES
-			('{' || 
-			   '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
-			   '"2":"/dev/stderr/:/dev/stdout/"' ||
-			 '}')
-	),	
     string_data AS (
-		SELECT json_terms."key" AS string_id, json_terms.value AS string
-		FROM json_object_data AS jd, json_tree(jd.json_str) AS json_terms
-	    WHERE json_terms.parent IS NOT NULL
+        SELECT "key" AS string_id, "value" AS string FROM json_each(
+			'{' || 
+			  '"1":"\\usr\\share\\man\\::bin:etc/mc:", ' ||
+			  '"2":"/dev/stderr/:/dev/stdout/"' ||
+			'}'
+		)
     ),
     clean_strings AS (
         SELECT strs.string_id,
@@ -77,8 +85,8 @@ WITH
     ),
     terms AS (
         SELECT string_id, term_id, replace(trim(term, p.path_sep), '\', '/') AS term
-		FROM raw_terms, params AS p
-	)
+        FROM raw_terms, params AS p
+    )
 SELECT * FROM terms;
 ~~~
 
@@ -86,7 +94,9 @@ Similarly, the query can be converted to a parameterized query as follows:
 
 ~~~sql
     params(sep, path_sep) AS (VALUES (@PathVarSeparator, '\/')),
-    json_object_data(json_str) AS (VALUES (@JSONPathVars)),
+    string_data AS (
+        SELECT "key" AS string_id, "value" AS string FROM json_each(@JSONPathVars)
+    ),
 ~~~
 
 Note how the modular nature of CTEs simplifies code modification.
@@ -95,4 +105,4 @@ Note how the modular nature of CTEs simplifies code modification.
 
 [SQLiteCAdoReflectVBA]: https://pchemguy.github.io/SQLiteC-for-VBA/
 [ContactEditor]: https://pchemguy.github.io/ContactEditor/
-[DSV Query]: /strings/split-dvs#DSV-Query
+[DSV Query]: /strings/split-dsv#DSV-Query
