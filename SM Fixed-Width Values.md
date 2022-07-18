@@ -3,7 +3,7 @@ layout: default
 title: Fixed-Width Values
 nav_order: 3
 parent: String Manipulation
-permalink: /strings/black-boxed-queries
+permalink: /strings/split-fwv
 ---
 
 ### Context
