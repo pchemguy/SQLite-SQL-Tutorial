@@ -25,14 +25,14 @@ FROM json_each('["' || replace('usr/share/man', '/', '", "') || '"]') AS terms;
 | 2       | share |
 | 3       | man   |
 
-This query will fail if the string contains quotation marks or backslashes (assuming these characters are not JSON escaped). Another potential issue involves leading and terminal separators. However, developing a universal string-splitting SQL script is impractical. Instead, the script functionality should match reasonable assumptions about the input format for a specific use case.
+This query will fail if the string contains quotation marks or backslashes (assuming these characters are not JSON escaped). Another potential issue involves leading and trailing separators. However, developing a universal string-splitting SQL script is impractical. Instead, the script functionality should match reasonable assumptions about the input format for a specific use case.
 
 For instance, let's improve the script to
 
  - split path-like variables (both Linux and Windows styles),
- - handle leading/terminal value separator,
+ - handle leading/trailing value separator,
  - handle doubled value separators (such as ";;"),
- - normalize all paths by stripping leading/terminal path separators,
+ - normalize all paths by stripping leading/trailing path separators,
  - convert any backslashes to slashes.
 
 <a name="DSV-Query"></a>
@@ -69,7 +69,7 @@ Going from top to bottom:
 
 - *params* acts as surrogate variables. *params* has one row, and it defines value and path separators. If this flexibility is excessive or unnecessary, adjust or remove this block. With the given definition, this query handles the Linux-style path variable, and the *params.sep* must be adjusted for Windows-style paths.
 - *string_data* defines the input data to be processed.
-- *clean_strings* performs input preprocessing. This code may clean leading/terminal/duplicate value separators and escape backslashes.
+- *clean_strings* performs input preprocessing. This code may clean leading/trailing/duplicate value separators and escape backslashes.
 - *json_strings* formats the preprocessed output of *clean_strings* as JSON arrays.
 - *raw_terms* splits the input (*json_each* unescapes backslashes automatically).
 - *term* performs postprocessing (in this case, it replaces backslashes with slashes).
