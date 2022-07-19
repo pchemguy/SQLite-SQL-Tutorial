@@ -17,7 +17,12 @@ WITH
 SELECT * FROM folders;
 ~~~
 
-Suppose we wish to turn it into a library query (as discussed [ealier]( /patterns/decoupling-sql)), which should split a generic string. For now, we ignore special cases, such as presense of backslashes and double quotes within the terms. Query input - the string to be split and the delimiter; query output - a list of terms. Let us further rewrite the query above as follows.
+Suppose we wish to turn it into a library query (as discussed [earlier]( /patterns/decoupling-sql)), which should split a generic string. For now, we ignore the potential presence of certain characters, such as backslashes and double quotes within the terms. Query interface:
+
+  - input - the string to be split and the delimiter;
+  - output - a list of terms.
+
+While we can parameterize the query above, let us, first, rewrite it as follows:
 
 ~~~sql
 WITH
@@ -32,7 +37,7 @@ WITH
 SELECT * FROM folders;
 ~~~
 
-The *delimiters* query is an "immediate" query returning a single row and a single column *delimiter*. The *terms* table in the *folders* query is now joined with this *delimiters* query. The incurred performance penalty due to this join should be minimal, if not negligible. At the same time, the *delimiter* column can now be used as a surrogate variable. The same consideration applies to the *strings* query. This query can now be turned into parameterized query (while we could parameterized the original query as well, this form is better for subsequent development):
+The *delimiters* query is an "immediate" query returning a single row and a single column *delimiter*. The *terms* table in the *folders* query is now joined with this *delimiters* query. The incurred performance penalty due to this join should be minimal, if not negligible. At the same time, the *delimiter* column can now act as a surrogate variable. The same consideration applies to the *strings* query. This query can now be parameterized:
 
 ~~~sql
 WITH
@@ -47,7 +52,7 @@ WITH
 SELECT * FROM folders;
 ~~~
 
-Can we process multiple string with a single query call? For example,
+Can we process multiple strings with a single query call? For example,
 
 ~~~sql
 WITH
@@ -80,7 +85,7 @@ This query works just fine and splits both strings:
 | 2       | Public   |
 | 3       | Desktop  |
 
-But we now need a means to label the terms with string ID. For example, the following query:
+But we now need the means to label the terms with a string ID. For example, the following query:
 
 <a name="DSV-Query"></a>
 ~~~sql
@@ -114,4 +119,4 @@ produces properly labeled output:
 | def       | 2       | Public   |
 | def       | 3       | Desktop  |
 
-Can we make a parameterized library query, if we want to split an arbitrary number of strings? Each input string requires a dedicated line in the *strings* block, and each such line needs two distinct query parameters. In other words, both the query code and the calling signature depend on the number of strings to be split.
+Can we make a parameterized library query if we want to split an arbitrary number of strings? Each input string requires a dedicated line in the *strings* block, and each such line needs two distinct query parameters. In other words, both the query code and the calling signature depend on the number of strings to be split, so a different approach is required.
