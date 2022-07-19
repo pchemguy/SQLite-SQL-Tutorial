@@ -41,13 +41,13 @@ The *delimiters* query is an "immediate" query returning a single row and a sing
 
 ~~~sql
 WITH
-	delimiters(delimiter) AS (VALUES (@delimiter)),
-	strings(string) AS (VALUES (@string)),
+    delimiters(delimiter) AS (VALUES (@delimiter)),
+    strings(string) AS (VALUES (@string)),
     folders AS (
         SELECT "terms"."key" AS term_id, "terms"."value" AS term
         FROM
-			delimiters, strings,
-			json_each('["' || replace(trim(string, delimiter), delimiter, '", "') || '"]') AS terms
+            delimiters, strings,
+            json_each('["' || replace(trim(string, delimiter), delimiter, '", "') || '"]') AS terms
     )
 SELECT * FROM folders;
 ~~~
