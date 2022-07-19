@@ -2,7 +2,7 @@
 layout: default
 title: Derived DB Metadata and Modular SQL with CTE
 nav_order: 4
-parent: SQLite Metadata
+parent: Metadata and Reflection
 permalink: /meta/db-derived-cte
 ---
 

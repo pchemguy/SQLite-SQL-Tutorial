@@ -2,7 +2,7 @@
 layout: default
 title: Overview
 nav_order: 1
-parent: SQLite Metadata
+parent: Metadata and Reflection
 permalink: /meta/overview
 ---
 
