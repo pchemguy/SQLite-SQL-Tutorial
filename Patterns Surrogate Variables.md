@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Surrogate Variables and JSON SQL Interface
+title: Variables and JSON Interface
 nav_order: 3
 parent: Design Patterns
 permalink: /patterns/variables-json-interface
