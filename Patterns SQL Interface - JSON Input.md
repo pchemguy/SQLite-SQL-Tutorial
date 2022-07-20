@@ -174,4 +174,6 @@ WITH
 SELECT * FROM folders;
 ~~~
 
+It is worth mentioning that the *array of objects* construct is a bit verbose. The alternative option is using *array of arrays* with mostly identical code. The downside of using this somewhat more efficient format is the increased risk of subtle bugs; switching to it is probably only justified when there is a demonstrated significant overall performance benefit.
+
 ---

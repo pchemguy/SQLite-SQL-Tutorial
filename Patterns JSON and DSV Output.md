@@ -66,7 +66,7 @@ WITH
         SELECT
             json_group_array(json_object('bin_id', bin_id, 'prefix', prefix, 'name', name)) AS fs_objects
         FROM folders
-	)
+    )
 SELECT * FROM json_fs_objects;
 ~~~
 
@@ -80,7 +80,7 @@ return a scalar string containing a set of records in the JSON format:
 ]
 ~~~
 
-JSON objects are a bit too verbous when returning a record set, but there are a few other options. For example:
+JSON objects are a bit too verbose when returning a record set, but there are a few other options. For example:
 
 ~~~sql
 WITH
