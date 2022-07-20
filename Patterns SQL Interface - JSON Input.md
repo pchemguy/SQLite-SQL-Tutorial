@@ -41,10 +41,10 @@ WITH
                 '['                                            ||
                     '"C:/Winows/System32/drivers/etc/hosts",'  ||
                     '"C:/Users/Public/Desktop/pic",'           ||
-					'"C:/Users/Default/Music/drum"'            ||
-				']'
-			) AS dirs
-	)
+                    '"C:/Users/Default/Music/drum"'            ||
+                ']'
+            ) AS dirs
+    )
 SELECT * FROM folders;
 ~~~
 
@@ -63,7 +63,7 @@ WITH
     folders AS (
         SELECT dirs."key" AS id, dirs.value AS path
         FROM json_each(@Paths) AS dirs
-	)
+    )
 SELECT * FROM folders;
 ~~~
 
@@ -90,10 +90,10 @@ WITH
                 '{'                                                   ||
                     '"239": "C:/Winows/System32/drivers/etc/hosts",'  ||
                     '"876": "C:/Users/Public/Desktop/pic",'           ||
-					'"374": "C:/Users/Default/Music/drum"'            ||
-				'}'
-			) AS dirs
-	)
+                    '"374": "C:/Users/Default/Music/drum"'            ||
+                '}'
+            ) AS dirs
+    )
 SELECT * FROM folders;
 ~~~
 
@@ -112,7 +112,7 @@ WITH
     folders AS (
         SELECT dirs."key" AS bin_id, dirs.value AS path
         FROM json_each(@Paths) AS dirs
-	)
+    )
 SELECT * FROM folders;
 ~~~
 
@@ -147,7 +147,7 @@ WITH
                     '{"bin_id": "876", "prefix": "C:/Users/Public/Desktop",        "name": "pic"  },'  ||
                     '{"bin_id": "374", "prefix": "C:/Users/Default/Music",         "name": "drum" }'   ||
                 ']'
-			) AS dirs
+            ) AS dirs
 	)
 SELECT * FROM folders;
 ~~~
@@ -170,7 +170,7 @@ WITH
             json_extract(dirs.value, '$.prefix') AS prefix,
             json_extract(dirs.value, '$.name')   AS name
         FROM json_each(@Paths) AS dirs
-	)
+    )
 SELECT * FROM folders;
 ~~~
 
