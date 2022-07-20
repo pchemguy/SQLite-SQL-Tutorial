@@ -37,7 +37,7 @@ WITH
 SELECT * FROM folders;
 ~~~
 
-The *delimiters* query is an "immediate" query returning a single row and a single column *delimiter*. The *terms* table in the *folders* query is now joined with this *delimiters* query. The incurred performance penalty due to this join should be minimal, if not negligible. At the same time, the *delimiter* column can now act as a surrogate variable. The same consideration applies to the *strings* query. This query can now be parameterized:
+The *delimiters* query is an "immediate" query returning a single row and a single column *delimiter*. This query is joined with the *terms* table in the *folders* query . The incurred performance penalty due to this join should be minimal, if not negligible. At the same time, **the *delimiter* column can now act as a surrogate variable.** The same consideration applies to the *strings* query. This query can now be parameterized:
 
 ~~~sql
 WITH
