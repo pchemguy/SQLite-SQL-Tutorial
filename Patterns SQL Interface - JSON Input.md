@@ -10,7 +10,7 @@ The JSON is a popular and robust format for passing structured information in te
 
 JSON encoding of the passed data has several benefits. It permits having a fixed SQL script accepting an array of arbitrary length as a query parameter. Also, it establishes a relatively simple, robust, and well-defined SQL interface based on a broadly supported format. Finally, because each query parameter may cost an additional API call, this approach may also improve the overall performance of the database call. An important consideration to bear in mind related to the JSON containers is the potential side effects of data conversion between numeric and textual formats.
 
-Consider a table *fs_objects(bin_id, prefix, name)* containing a list of file system objects, uniquely identified by their absolute paths (*prefix* || *path_sep* || *name*) and a unique *bin_id*. Suppose an application needs to pass a set of new objects for insertion into this table. Such a set is a 1D vector of arbitrary size, which may contain:
+Consider a table *fs_objects(bin_id, prefix, name)* containing a list of file system objects, uniquely identified by their absolute paths *concat*(*prefix*, *path_sep*, *name*) and a unique *bin_id*. Suppose an application needs to pass a set of new objects for insertion into this table. Such a set is a 1D vector of arbitrary size, which may contain:
 
  1. **a scalar value for a single column** (e.g., absolute path).
  2. **a pair of scalar values for two columns** (e.g., id and absolute path)
