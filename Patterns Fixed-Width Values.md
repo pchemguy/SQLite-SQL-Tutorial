@@ -1,9 +1,9 @@
 ---
 layout: default
 title: Fixed-Width Values
-nav_order: 3
-parent: String Manipulation
-permalink: /strings/split-fwv
+nav_order: 6
+parent: Design Patterns
+permalink: /patterns/split-fwv
 ---
 
 ### Context
@@ -18,7 +18,7 @@ where the key term is node ASCII ID, and the value term is node path/prefix, not
 
 ### Splitting fixed-width value strings
 
-Like in the case of [DSV][] strings, the following query iscontext-specific, but the notes below should help adapt it to other needs.
+The following query is context-specific, but the notes below should help adapt it to other needs.
 
 <a name="FWV-Query"></a>
 ~~~sql
