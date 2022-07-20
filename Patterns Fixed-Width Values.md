@@ -8,7 +8,7 @@ permalink: /patterns/split-fwv
 
 ### Context
 
-Consider a tree structure representing a hierarchical system of categories to be stored in a relational database. While the classical relational model does not mesh well with hierarchical data, there are several approaches to marrying these concepts (see [References](/mat-paths/overview#References) for further information). In the Materialized/Enumerated Paths, each node record in the *nodes* table stores information about its absolute path. There are several approaches to encoding this path, which may or may not include the node itself. Let us assume that each node is assigned an ID consisting of eight randomly selected alphanumeric ASCII characters. An analog of file system path constructed from a sequence of ancestor IDs can act as the node path. Furthermore, because node ID has a fixed length, a "path separator" is not necessary, for example: 
+Consider a tree structure representing a hierarchical system of categories to be stored in a relational database. While the classical relational model does not mesh well with hierarchical data, there are several approaches to marrying these concepts (see [References](../../mat-paths/overview#References) for further information). In the Materialized/Enumerated Paths, each node record in the *nodes* table stores information about its absolute path. There are several approaches to encoding this path, which may or may not include the node itself. Let us assume that each node is assigned an ID consisting of eight randomly selected alphanumeric ASCII characters. An analog of file system path constructed from a sequence of ancestor IDs can act as the node path. Furthermore, because node ID has a fixed length, a "path separator" is not necessary, for example: 
 
 ~~~json
 {"BE0A8514": "afc2e40a40CF97B4704BA7F4F4CE4D5BF5A2A524"}
@@ -79,4 +79,3 @@ to switch to the JSON-based input format:
 ~~~json
 {"ascii_id_1": "prefix_1", "ascii_id_2": "prefix_2",...}
 ~~~
-
