@@ -8,7 +8,7 @@ permalink: /patterns/split-fwv
 
 ### Context
 
-Consider a tree structure representing a hierarchical system of categories to be stored in a relational database. While the classical relational model does not mesh well with hierarchical data,  there are several approaches to marrying these concepts (see [References](#References) for further information). In the Materialized/Enumerated Paths, each node record in the *nodes* table stores information about its absolute path. There are several approaches to encoding this path, which may or may not include the node itself. Let us assume that each node is assigned an ID consisting of eight randomly selected alphanumeric ASCII characters. An analog of file system path constructed from a sequence of ancestor IDs can act as the node path. Furthermore, because node ID has a fixed length, a "path separator" is not necessary, for example: 
+Consider a tree structure representing a hierarchical system of categories to be stored in a relational database. While the classical relational model does not mesh well with hierarchical data, there are several approaches to marrying these concepts (see [References](/mat-paths/overview#References) for further information). In the Materialized/Enumerated Paths, each node record in the *nodes* table stores information about its absolute path. There are several approaches to encoding this path, which may or may not include the node itself. Let us assume that each node is assigned an ID consisting of eight randomly selected alphanumeric ASCII characters. An analog of file system path constructed from a sequence of ancestor IDs can act as the node path. Furthermore, because node ID has a fixed length, a "path separator" is not necessary, for example: 
 
 ~~~json
 {"BE0A8514": "afc2e40a40CF97B4704BA7F4F4CE4D5BF5A2A524"}
@@ -52,7 +52,7 @@ SELECT * FROM json_prefixes;
  1. ID length is necessary to split the prefix. This value may be provided via a dedicated query parameter or hardcoded. *id_sizes* uses a third option: because this query expects both node id and prefix, it grabs node ID from the first input pair and takes its length.
  2. *positions* query is possibly a bit over-engineered way of creating a table containing offsets of different *prefix* components to be used by the *substr* function. To start, the query determines length(*prefix*) / length(*node ID*) = *IDs_in_prefix* ratio used to produce a dummy JSON array of the same length. First, the *hex* and *zeroblob* functions produce a zero-field string template. Then, the *replace* function inserts JSON element separators (commas) into the template. Because the *hex/zeroblob* pair produces a doubled length string, _replace_ swaps every two zeros with a single zero. There is no comma after the last "0", so *IDs_in_prefix* is reduced by one, and the last zero prefixes the closing bracket. Finally, the *json_each* table-valued function splits this template and returns a table with the "key" column containing the offsets of JSON array elements, and "key" x id_size +  1 can be used as offsets for *substr*.
  3. *ascii_ids* uses *substr* to generate rows containing *prefix* elements labeled with both node ID and the element position in the original string.
-4. *json_prefixes* collapses rows belonging to the same node ID (the *ascii_ids* is sorted on *ascii_id* and *position*), yielding the final result.
+ 4. *json_prefixes* collapses rows belonging to the same node ID (the *ascii_ids* is sorted on *ascii_id* and *position*), yielding the final result.
 
 Query output:
 
@@ -80,26 +80,3 @@ to switch to the JSON-based input format:
 {"ascii_id_1": "prefix_1", "ascii_id_2": "prefix_2",...}
 ~~~
 
-
-
-
-<a name="References"></a>
-### References
-
-1. [Joe Celko's Trees and Hierarchies in SQL for Smarties, 2nd edition][Celko's Trees]
-2. [SQL Design Patterns: The Expert Guide to SQL Programming][Tropashko]
-3. [Nested Sets and Materialized Path SQL Trees][NS-MP]
-4. [Storing trees in RDBMS][Kolesnikova]
-5. [Django-Treebeard tree library for Django Web Framework][django-treebeard]
-6. [PostgreSQL tree module ltree][PostgreSQL ltree]
-
-
-<!-- References -->
-
-[Celko's Trees]: https://sciencedirect.com/book/9780123877338
-[Tropashko]: https://vadimtropashko.wordpress.com/%22sql-design-patterns%22-book/about
-[NS-MP]: http://rampant-books.com/art_vadim_nested_sets_sql_trees.htm
-[django-treebeard]: https://django-treebeard.readthedocs.io
-[PostgreSQL ltree]: https://www.postgresql.org/docs/current/ltree.html
-[Kolesnikova]: https://bitworks.software/en/2017-10-20-storing-trees-in-rdbms.html
-[DSV]: /strings/split-dsv#DSV-Query
