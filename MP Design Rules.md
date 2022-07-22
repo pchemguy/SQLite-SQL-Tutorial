@@ -14,8 +14,8 @@ This project explores SQLite capacity and features for managing hierarchical sys
  4. The category *path* encodes a simple classification feature associated with that category.
  5. The category *path* is unique (no namesake siblings).
  6. Category names are case-preserving and case-insensitive.
- 7. Any categorized object may be assigned multiple categories.
- 8. No category/object name collision.
+ 7. Any categorized item may be assigned multiple categories.
+ 8. No category-item name collision.
 
 It is instructive to compare and contrast systems described by these rules with file systems (FS), probably the most familiar hierarchical structures for the organization of file system objects (FSO), particularly files. Like directories organize files, categories facilitate the organization of categorized items. A large portion of the above rules governs naming conventions, some of which are similar to those of FSs, while others may appear counterintuitive. Fundamental differences between the two systems justify the latter choices. For once, while categories and categorized objects belong to separate object spaces (database tables), directories and files share the same namespace. Also, categories are closer to selection filters than surrogate containers, so category assignment is akin to tagging rather than placing objects in folder-like bins/containers and does not cause any object relocation, physical or virtual. With these differences in mind, let us provide some justification for the selected rules.
 
@@ -45,13 +45,13 @@ There are FS with both case-sensitive and case-insensitive FSO names. For exampl
 
 #### Rules #7
 
-The ability to assign multiple categories to items is a de-facto standard. This feature does not create loop-related complications for two reasons. On the one hand, categories are always parents to categorized objects. More importantly, categories and items belong to separate object spaces (database tables). For these reasons, a category path and the item name combination is meaningless (no FS path analogy here).
+The ability to assign multiple categories to items is a de-facto standard. This feature does not create loop-related complications for two reasons. On the one hand, categories are always parents to categorized items. More importantly, categories and items belong to separate object spaces (database tables). For these reasons, a category path and the item name combination is meaningless (no FS path analogy here).
 
 #### Rules #8
 
 Technically, category and item names do not share the same namespace; semantically, both are item attributes (this is very different from FS counterparts). Therefore, category and item names cannot collide.
 
-The similar item/item interaction is beyond the scope of category system rules. Generally, categories act as tags and independent item attributes and should not affect the object/object interaction. Typically, items should not define any common namespace. While, occasionally, having multiple identically named items within the same category may be suboptimal, they should not cause any interference in the functioning of the category system as an information management tool.
+The similar item-item interaction is beyond the scope of category system rules. Generally, categories act as tags and should not affect the item-item interaction. Typically, items should not define any common namespace. While, occasionally, having multiple identically named items within the same category may be suboptimal, they should not cause any interference in the functioning of the category system as an information management tool.
 
 
 <a name="References"></a>
