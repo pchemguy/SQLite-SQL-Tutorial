@@ -113,10 +113,11 @@ SELECT * FROM records ORDER BY path;
 
 in which %SELECTOR% should be replaced according to the following table
 
-
-| node set    | %SELECTOR%                                      |
-|-------------|-------------------------------------------------|
-| root nodes  | <pre>cats.path    IN  (tops.path)</pre>         |
-| descendants | <pre>cats.prefix like  tops.path \|\| '%'</pre> |
-| subtrees    | <pre>cats.path   like  tops.path \|\| '%'</pre> |
-| children    | <pre>cats.prefix  =    tops.path</pre>          |
+<pre>
+|  <b>node set</b>   |              <b>%SELECTOR%</b>              |
+|-------------|--------------------------------------|
+| root nodes  | cats.path    IN  (tops.path)         |
+| descendants | cats.prefix like  tops.path \|\| '%' |
+| subtrees    | cats.path   like  tops.path \|\| '%' |
+| children    | cats.prefix  =    tops.path          |
+</pre>
