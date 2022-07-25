@@ -20,6 +20,7 @@ For each of the three formats, we need a parameterized query accepting an arbitr
 
 ---
 
+<a name="json-array"></a>
 ### 1. 1D vector of scalars via JSON array
 
 **Input**
@@ -69,6 +70,7 @@ SELECT * FROM folders;
 
 ---
 
+<a name="json-object"></a>
 ### 2. 1D vector of pairs via JSON object
 
 **Input**
@@ -118,8 +120,8 @@ SELECT * FROM folders;
 
 ---
 
-### 2. 1D vector of multicolumn row values via JSON array of objects
-
+<a name="json-array-object"></a>
+### 3. 1D vector of multicolumn row values via JSON array of objects
 
 **Input**
 
