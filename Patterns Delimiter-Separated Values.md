@@ -58,7 +58,7 @@ WITH
     nodes AS (
         SELECT path, substr(path, 1, length(path) - length(name) - 1) AS prefix, name
         FROM node_names
-	)
+    )
 SELECT * FROM nodes;
 ~~~
 
