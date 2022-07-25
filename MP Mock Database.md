@@ -25,14 +25,14 @@ CREATE TABLE categories (
     id            INTEGER PRIMARY KEY NOT NULL,
     ascii_id      TEXT UNIQUE COLLATE BINARY AS (
                       char(
-                          ("id" >> 8 * 7) & 255,
-                          ("id" >> 8 * 6) & 255,
-                          ("id" >> 8 * 5) & 255,
-                          ("id" >> 8 * 4) & 255,
-                          ("id" >> 8 * 3) & 255,
-                          ("id" >> 8 * 2) & 255,
-                          ("id" >> 8 * 1) & 255,
-                          ("id" >> 8 * 0) & 255
+                          (abs(id) >> 8 * 7) & 255,
+                          (abs(id) >> 8 * 6) & 255,
+                          (abs(id) >> 8 * 5) & 255,
+                          (abs(id) >> 8 * 4) & 255,
+                          (abs(id) >> 8 * 3) & 255,
+                          (abs(id) >> 8 * 2) & 255,
+                          (abs(id) >> 8 * 1) & 255,
+                          (abs(id) >> 8 * 0) & 255
                       )
                   ) STORED
                   CHECK (length(ascii_id) = 8),
