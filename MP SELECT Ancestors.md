@@ -80,4 +80,4 @@ WITH
 SELECT * FROM ancestors;
 ~~~
 
-Blocks *json_nodes* through *tops* constitute the same prologue as [before](select-desc#prologue). The *prefixes* block retrieves node prefixes from the *categories* table (alternatively, prefixes could be calculated from the input by stripping the last path parts). *json_prefixes* prepares "nested doll" JSON objects, and the *ancestors* block generates ancestor lists. The last block temporarily escapes any periods in names by replacing them with '\^#\^'  at the beginning and performing the inverse replacement at the end.
+Blocks *json_nodes* through *tops* constitute the same prologue as [before](select-desc#prologue). The *prefixes* block retrieves node prefixes from the *categories* table (alternatively, prefixes could be calculated from the input by stripping the last path parts). *json_prefixes* prepares "nested doll" JSON objects, and the *ancestors* block generates ancestor lists. The last block temporarily escapes any periods in names by replacing them with '^#^'  at the beginning and performing the inverse replacement at the end.
