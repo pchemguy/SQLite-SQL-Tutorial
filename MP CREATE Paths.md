@@ -9,7 +9,7 @@ permalink: /mat-paths/create
 The CREATE script incorporates the following components:
 
   - [prologue](modify#prologue) - __*json_ops* through *base_ops*__;
-  - [ancestor list](select-asc#list-ancestors) generation - __*levels* through *ancestors*__ (note that the referenced template contains SELECT-style prologue, which is replaced with the modify-style prologue);
+  - [ancestor list](select-asc#list-ancestors) generation - __*levels* through *ancestors*__ (note that the referenced template contains a SELECT-style prologue, which is replaced with a modify-style prologue);
   - *path_terms* removes rows corresponding to already existent categories and adds row numbers;
   - [ASCII id](../patterns/ascii-id) generation - __*id_counts* through *ids*__;
   - *new_nodes* joins path terms with newly generated IDs.
