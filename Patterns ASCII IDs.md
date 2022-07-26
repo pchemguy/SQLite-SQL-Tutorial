@@ -8,6 +8,7 @@ permalink: /patterns/ascii-id
 
 The following query generates random eight-character-long ASCII IDs (*id_counts*.*id_counter* pieces) using the specified alphabet (*char_templates*). The dash and underscore characters extend the alphanumeric alphabet to 64 characters allowing the selection of the six least significant bits from a random 64-bit number via bitwise AND (instead of *mod*). The *ids* block generates a 64-bit integer representation of the same ID. Saving character code before grouping in *ascii_ids* would not work because the query optimizer tends to rerun the query, executing the *random* function and generating the character and character code independently. The intermediate table aggregation operation prevents this optimization.
 
+<a name="ascii_id_gen"></a>
 ~~~sql
 WITH
     id_counts(id_counter) AS (VALUES (3)),
