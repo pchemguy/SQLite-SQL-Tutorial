@@ -52,7 +52,7 @@ WITH
     paths(path) AS (VALUES ('tcl/compat/zlib1/'), ('tcl/pkgs/thread2.8.7/tcl/cmdsrv/')), 
     node_names AS (
         SELECT path,
-            json_extract('["' || replace(trim(path, '/'), '/', '", "') || '"]', '$[#-1]') AS name
+               json_extract('["' || replace(trim(path, '/'), '/', '", "') || '"]', '$[#-1]') AS name
         FROM paths
     ),
     nodes AS (
