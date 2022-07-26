@@ -146,3 +146,5 @@ This query splits paths as provided and no longer accesses the *categories* tabl
 | 2  | tcl/pkgs/thread2.8.7/            | thread2.8.7 |
 | 2  | tcl/pkgs/thread2.8.7/tcl/        | tcl         |
 | 2  | tcl/pkgs/thread2.8.7/tcl/cmdsrv/ | cmdsrv      |
+
+Note that both queries include a SELECT-style [prologue](select-desc#prologue), which may be replaced as necessary.
