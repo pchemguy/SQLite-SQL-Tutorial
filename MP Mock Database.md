@@ -16,7 +16,7 @@ An MPs database must have at least three tables:
   - *items* (the *files* table in the mock db) - table for storing categorized items;
   - *items_categories* (the *files_categories* table in the mock db) - many-to-many table for storing category assignments.
 
-The database may contain any number of "items" tables together with associated *items_categories* tables. Note that the included in the repository database has the "dev" status. For example, the *categories* table includes columns, so some of them will be unnecessary in a production database.
+The database may contain any number of item-specific tables together with associated *items_categories* tables. Note that the included in the repository database has the "dev" status. For example, the *categories* table includes columns, some of which may not be unnecessary in a production database.
 
 #### Categories
 
@@ -43,7 +43,8 @@ CREATE TABLE categories (
                          NOT instr(name, '"') ),
     prefix        TEXT NOT NULL COLLATE NOCASE
                   CHECK (iif(length(prefix) > 0, substr(prefix, 1, 1) <> '/' AND substr(prefix, - 1, 1) = '/', 1)),
-    path          TEXT NOT NULL UNIQUE COLLATE NOCASE AS (prefix || name || '/') STORED,
+    path          TEXT NOT NULL UNIQUE COLLATE NOCASE AS (iif(name <> '~', prefix || name || '/', '')) STORED,
+
     CONSTRAINT uq_categories_prefix_name UNIQUE(name, prefix),
     CONSTRAINT fk_categories_categories_prefix_path FOREIGN KEY (prefix)
       REFERENCES categories (path) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -58,17 +59,15 @@ This table contains three independent and two stored generated columns. The form
   - *prefix* - category prefix,
   - *id* - category id.
 
-The category name should preferably include alphanumeric characters only. Other characters may cause problems; slashes, comma, and double quote are prohibited (see the CHECK constraint). Names starting with the tilde character are reserved for internal use.
+The category *name* should preferably include alphanumeric characters only. Other characters may cause problems; slashes, comma, and double quote are prohibited (see the CHECK constraint). Names starting with the tilde character are reserved for internal use.
 
-There are several [approaches][TreesAndRDBMS] to encoding the *prefix* value based on an FS-like path using node names or IDs. With fixed length IDs, the path separator is unnecessary. For example, 8-character ASCII IDs and delimiterless VARCHAR(255) (where available) may encode a hierarchy with up to 32 levels. The current implementation uses plain FS-like paths with the forward slash as the path separator. All prefixes are absolute and include trailing but not leading slash to simplify code. Top-level nodes have the blank string as their prefix.
+There are several [approaches][TreesAndRDBMS] to encoding the *prefix* value based on an FS-like path using node names or IDs. With fixed length IDs, the path separator is unnecessary. For example, 8-character ASCII IDs and delimiterless VARCHAR(255) (where available) may encode a hierarchy with up to 32 levels. 
+
+The current schema follows several conventions facilitating MPs operations. *prefix* encoding uses plain FS-like paths with the forward slash as the path separator. All prefixes are absolute and include trailing but not leading slash to simplify code. Top-level nodes have the blank string, rather than the NULL, as their prefix. The *path* column, generated from *prefix* and *name*, is the target of a self-referential foreign key *prefix* &rarr; *path* to the parent category. (For now, both UPDATE and DELETE cascades are disabled. These cascades are only usable for basic scenarios and should not be relied upon in general.) The parent foreign key, providing an additional level of referential integrity, fails for top-level directories having blanks as their prefixes. Switching to the NULL-based root designation would resolve the issue, but the necessity to handle NULL prefixes may cause problems in other places. Instead, a system hidden category {"ascii_id":"00000000", "name":"~", "prefix":""} acts as a dummy super-root node and resolves the missing foreign key target for top-level nodes. The *path* code checks for this specific case and returns the blank string for the super-root. The *path* column is also the reference target of the foreign key from the *files_categories* table. This deliberate deviation from more natural *id* or *ascii_id* targets simplifies several operations. 
 
 The *ascii_id* column is a random eight-character long string, which may contain alphanumeric ASCII characters, dash, and underscore (the last two characters bring the alphabet size to 2^6 characters). This column  encodes a 64-bit number generated from the *id* column. In practice, however, the process is the [opposite](../patterns/ascii-id). The ID-based prefix encoding may use this column in the future.
 
-The *path* column (generated from *prefix* and *name*) is the reference target of the foreign key from the *files_categories* table. This deliberate deviation from the more natural *id* or *ascii_id* targets simplifies several operations. 
-
 By definition, the employed MPs model fulfills [design **Rule #1**](./design-rules#Rules). The generated *path* column implements **Rule #3**, and the unique constraint enforces **Rule #5**. By design, each category can have only a single parent reference via the *prefix* column, which defines its parent's *path*, enforcing **Rule #2**. **Rule #4** is semantic and not subject to database controls. *name*/*prefix*/*path* collations enforce **Rule #6**. Many-to-many item-category relation tables implement **Rule #7**, and the separation of tables  for categories and items ensures **Rule #8**. The CHECK constraint on the *name* column ensures the absence of the most troublesome characters in the values.
-
-The last constraint is a self-referential foreign key *prefix* &rarr; *path* to the parent category. For now, both UPDATE and DELETE cascades are disabled. These cascades are only usable for basic scenarios and should not be relied upon in general.
 
 Note that only the prefix column needs an index, with other columns having automatic indices.
 
