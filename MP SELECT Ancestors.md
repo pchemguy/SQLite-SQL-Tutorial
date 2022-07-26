@@ -71,7 +71,8 @@ WITH
     ),
     ancestors AS (
         SELECT ascii_id,
-            replace(replace(substr(fullkey, 3), '.', '/'), '^#^', '.') || '/' AS asc_path
+            replace(replace(substr(fullkey, 3), '.', '/'), '^#^', '.') || '/' AS asc_path,
+            replace("key", '^#^', '.') AS asc_name
         FROM
             json_prefixes AS jp,
             json_tree(replace(jp.prefix_json, '.', '^#^')) AS prefixes
@@ -84,14 +85,14 @@ Blocks *json_nodes* through *tops* constitute the same prologue as [before](sele
 
 **Output**
 
-| ascii_id | asc_path                  |
-|----------|---------------------------|
-| 0FDAF2C8 | tcl/                      |
-| 0FDAF2C8 | tcl/compat/               |
-| BE0A8514 | tcl/                      |
-| BE0A8514 | tcl/pkgs/                 |
-| BE0A8514 | tcl/pkgs/thread2.8.7/     |
-| BE0A8514 | tcl/pkgs/thread2.8.7/tcl/ |
+| ascii_id | asc_name    | asc_path                  |
+|----------|-------------|---------------------------|
+| 0FDAF2C8 | tcl         | tcl/                      |
+| 0FDAF2C8 | compat      | tcl/compat/               |
+| BE0A8514 | tcl         | tcl/                      |
+| BE0A8514 | pkgs        | tcl/pkgs/                 |
+| BE0A8514 | thread2.8.7 | tcl/pkgs/thread2.8.7/     |
+| BE0A8514 | tcl         | tcl/pkgs/thread2.8.7/tcl/ |
 
 ---
 
@@ -118,14 +119,13 @@ WITH
         FROM levels
     ),
     ancestors AS (
-        SELECT min(jo.id) AS id,
-            replace(replace(substr(fullkey, 3), '.', '/'), '^#^', '.') || '/' AS asc_path
+        SELECT jo.id,
+            replace(replace(substr(fullkey, 3), '.', '/'), '^#^', '.') || '/' AS asc_path,
+            replace("key", '^#^', '.') AS asc_name
         FROM
             json_objs AS jo,
             json_tree(replace(jo.json_obj, '.', '^#^')) AS terms
         WHERE terms.parent IS NOT NULL
-		GROUP BY asc_path
-		ORDER BY id, asc_path
     )
 SELECT * FROM ancestors;
 ~~~
@@ -134,13 +134,13 @@ This query splits paths as provided and no longer accesses the *categories* tabl
 
 **Output**
 
-| id | asc_path                         |
-|----|----------------------------------|
-| 1  | tcl/                             |
-| 1  | tcl/compat/                      |
-| 1  | tcl/compat/zlib1/                |
-| 2  | tcl/pkgs/                        |
-| 2  | tcl/pkgs/thread2.8.7/            |
-| 2  | tcl/pkgs/thread2.8.7/tcl/        |
-| 2  | tcl/pkgs/thread2.8.7/tcl/cmdsrv/ |
-
+| id | asc_name    | asc_path                         |
+|----|-------------|----------------------------------|
+| 1  | tcl         | tcl/                             |
+| 1  | compat      | tcl/compat/                      |
+| 1  | zlib1       | tcl/compat/zlib1/                |
+| 2  | tcl         | tcl/                             |
+| 2  | pkgs        | tcl/pkgs/                        |
+| 2  | thread2.8.7 | tcl/pkgs/thread2.8.7/            |
+| 2  | tcl         | tcl/pkgs/thread2.8.7/tcl/        |
+| 2  | cmdsrv      | tcl/pkgs/thread2.8.7/tcl/cmdsrv/ |
