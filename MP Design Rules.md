@@ -8,6 +8,7 @@ permalink: /mat-paths/design-rules
 
 This project explores SQLite capacity and features for managing hierarchical systems of categories. While the classical relational model does not mesh well with hierarchical data, there are several [approaches](#TreesAndRDBMS) to marrying these concepts. Category systems facilitate information [management](#ClassRefs) by associating each category with a specific characteristic/feature that distinguishes its members from nonmembers. The design of these category systems shall meet the following specification:
 
+<a name="Rules"></a>
  1. Categories form a tree/forest structure.
  2. Each category has at most one parent. 
  3. A category is identified by its *path* (vis-a-vis an absolute normalized file system path).
@@ -37,7 +38,7 @@ This rule is essentially common sense. Many broadly used classification systems 
 
 #### Rule #5
 
-Each category is associated with a distinct classification feature (encoded in the category's path, see Rule #4) used to identify a subset of objects sharing the same feature. Allowing sibling namesakes among categories is, therefore, meaningless and degrades, if not breaks, the utility of the classification system (cf. with FS paths, which identify FSOs).
+Each category is associated with a distinct classification feature (encoded in the category's path, see Rule #4) used to identify a subset of objects sharing the same feature. Allowing sibling namesakes among categories is, therefore, meaningless and degrades, if not breaks, the utility of the classification system (cf. with FS paths, which identify FSOs). Because of this rule, the *path* column constitutes a natural primary key and is a suitable reference for foreign key relationships. Also, category subtree COPY/MOVE operations may cause name conflicts, and the processing script should partially follow FS logic (see following sections for further discussion). For each conflict, only a single conflicting node remians, retaining item assignments from both conflicitng nodes.
 
 #### Rule #6
 
