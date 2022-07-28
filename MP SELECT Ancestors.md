@@ -50,6 +50,7 @@ follows the "nested doll" design, with each node name acting as a JSON object ke
 
 ~~~sql
 WITH
+    ------------------------------ PROLOGUE ------------------------------
     json_nodes(ids) AS (
         VALUES
             ('["tcl/compat/zlib1/", "tcl/pkgs/thread2.8.7/tcl/cmdsrv/"]')
@@ -59,6 +60,8 @@ WITH
         FROM json_nodes AS jn, json_each(jn.ids) AS node_ids
     ),
     tops AS (SELECT node_id AS path FROM nodes),
+    /********************************************************************/
+    --------------------------- ANCESTOR LIST ----------------------------
     prefixes AS (
         SELECT ascii_id, prefix,
             length(prefix) - length(replace(prefix, '/', '')) AS depth
@@ -78,6 +81,7 @@ WITH
             json_tree(replace(jp.prefix_json, '.', '^#^')) AS prefixes
         WHERE prefixes.parent IS NOT NULL
     )
+    /********************************************************************/
 SELECT * FROM ancestors;
 ~~~
 
@@ -101,6 +105,7 @@ A similar query splits provided paths directly:
 
 ~~~sql
 WITH
+    ------------------------------ PROLOGUE ------------------------------
     json_nodes(ids) AS (
         VALUES
             ('["tcl/compat/zlib1/", "tcl/pkgs/thread2.8.7/tcl/cmdsrv/"]')
@@ -110,6 +115,8 @@ WITH
         FROM json_nodes AS jn, json_each(jn.ids) AS node_ids
     ),
     tops AS (SELECT id, node_id AS path FROM nodes),
+    /********************************************************************/
+    --------------------------- ANCESTOR LIST ----------------------------
     levels AS (
         SELECT id, path, length(path) - length(replace(path, '/', '')) AS depth
         FROM tops
@@ -130,6 +137,7 @@ WITH
         GROUP BY asc_path		
         ORDER BY id, asc_path
     )
+    /********************************************************************/
 SELECT * FROM ancestors;
 ~~~
 
