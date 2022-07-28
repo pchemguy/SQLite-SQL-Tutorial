@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Assets/database/Materialized Paths.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:maincategories"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="140"/><column index="2" value="69"/><column index="3" value="221"/><column index="4" value="300"/><column index="5" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 30">--('BE0A8514'), ('0FDAF2C8'), ('65887f45')
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Assets/database/Materialized Paths.db" readonly="0" foreign_keys="0" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:maincategories"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="140"/><column index="2" value="69"/><column index="3" value="221"/><column index="4" value="300"/><column index="5" value="402"/></column_widths><filter_values><column index="5" value="~Trash/tcl/compat/zlib1/"/></filter_values><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="files_categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="300"/><column index="2" value="81"/></column_widths><filter_values><column index="1" value="tcl/compat/zlib1/"/></filter_values><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 30">--('BE0A8514'), ('0FDAF2C8'), ('65887f45')
 --'/~/SQLiteEx/tcl/pkgs/thread2.8.7/tcl'
 
 WITH
@@ -1251,16 +1251,7 @@ SELECT * FROM terms;</sql><sql name="SQL 29">WITH
 		FROM json_object_data AS jd, json_tree(jd.json_str) AS json_terms
 	    WHERE json_terms.parent IS NOT NULL
     )
-SELECT * FROM string_data;</sql><sql name="SQL 30">WITH
-    prefixes(ascii_id, prefix_json) AS (VALUES
-        ('0FDAF2C8', '[&quot;afc2e40a&quot;,&quot;40CF97B4&quot;,&quot;82A35587&quot;]'),
-        ('BE0A8514', '[&quot;afc2e40a&quot;,&quot;40CF97B4&quot;,&quot;704BA7F4&quot;,&quot;F4CE4D5B&quot;,&quot;F5A2A524&quot;]')
-    ),
-    ancestors AS (
-        SELECT ascii_id, ancestor_ids.id AS ancestor_level, ancestor_ids.value AS ancestor_id
-        FROM prefixes, json_each(prefixes.prefix_json) AS ancestor_ids
-	)
-SELECT * FROM ancestors;</sql><sql name="SQL 31">WITH
+SELECT * FROM string_data;</sql><sql name="SQL 31">WITH
     ids         AS (SELECT value AS id FROM json_each('[&quot;BE0A8514&quot;, &quot;0FDAF2C8&quot;]')),
     node_rows   AS (SELECT ascii_id, name, trim(prefix, '/') AS prefix FROM categories WHERE ascii_id IN ids), 
     node_jsons  AS (SELECT *, json('[&quot;' || replace(prefix, '/', '&quot;, &quot;') || '&quot;]') AS prefix_json FROM node_rows),
@@ -1649,7 +1640,7 @@ SELECT * FROM base_ops;
         SELECT bin_id AS id, asc_name AS name, asc_prefix AS prefix
 		FROM path_terms, ids USING (counter)
 	)
---INSERT INTO categories (id, name, prefix)
+INSERT INTO categories (id, name, prefix)
 SELECT * FROM new_nodes;</sql><sql name="SQL 41">WITH
     json_nodes(ids) AS (
         VALUES
@@ -1709,7 +1700,107 @@ SELECT * FROM ancestors;</sql><sql name="SQL 42">WITH
 		ORDER BY id, asc_path
     )
 SELECT * FROM ancestors;
-</sql><sql name="SQL 44">SELECT cats.*
-FROM categories AS cats
-LEFT JOIN categories AS parents
-ON cats.prefix = parents.path</sql><current_tab id="34"/></tab_sql></sqlb_project>
+</sql><sql name="SQL 44">WITH
+    json_nodes(ids) AS (
+        VALUES
+            ('[&quot;tcl/compat/zlib1/&quot;, &quot;tcl/pkgs/thread2.8.7/tcl/cmdsrv/&quot;]')
+    ), 
+    nodes AS (
+        SELECT node_ids.value AS node_id
+        FROM json_nodes AS jn, json_each(jn.ids) AS node_ids
+    ),
+    tops AS (SELECT node_id AS path FROM nodes),
+    prefixes AS (
+        SELECT ascii_id, prefix,
+            length(prefix) - length(replace(prefix, '/', '')) AS depth
+        FROM categories WHERE path IN tops
+    ),    
+    json_prefixes AS (
+        SELECT *, json('{&quot;' || replace(rtrim(prefix, '/'), '/', '&quot;: {&quot;') ||
+            '&quot;:&quot;&quot;' || replace(hex(zeroblob(depth)), '00', '}')) AS prefix_json
+        FROM prefixes
+    ),
+    ancestors AS (
+        SELECT ascii_id,
+            replace(replace(substr(fullkey, 3), '.', '/'), '^#^', '.') || '/' AS asc_path,
+            replace(&quot;key&quot;, '^#^', '.') AS asc_name
+        FROM
+            json_prefixes AS jp,
+            json_tree(replace(jp.prefix_json, '.', '^#^')) AS prefixes
+        WHERE prefixes.parent IS NOT NULL
+    )
+SELECT * FROM ancestors;</sql><sql name="SQL 30">WITH
+    json_ops(ops) AS (
+        VALUES
+            (json(
+				'['                                                                    ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;tcl/compat/zlib1/&quot;},'                 ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;BAZ/dev/git4win/x32/mingw32/share/&quot;}' ||
+				']'
+            ))
+    ),
+    base_ops AS (
+        SELECT
+            &quot;key&quot; + 1 AS opid,
+            json_extract(value, '$.op') AS op,
+            json_extract(value, '$.path_old') AS path_old,
+            json_extract(value, '$.path_new') AS path_new
+        FROM json_ops AS jo, json_each(jo.ops) AS terms
+    ),
+	targets AS (SELECT cat_id FROM files_categories, base_ops WHERE cat_id like path_old || '%')
+DELETE FROM files_categories WHERE cat_id IN targets;
+
+
+WITH
+    json_ops(ops) AS (
+        VALUES
+            (json(
+				'['                                                                    ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;tcl/compat/zlib1/&quot;},'                 ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;BAZ/dev/git4win/x32/mingw32/share/&quot;}' ||
+				']'
+            ))
+    ),
+    base_ops AS (
+        SELECT
+            &quot;key&quot; + 1 AS opid,
+            json_extract(value, '$.op') AS op,
+            json_extract(value, '$.path_old') AS path_old,
+            json_extract(value, '$.path_new') AS path_new
+        FROM json_ops AS jo, json_each(jo.ops) AS terms
+    ),
+	targets AS (SELECT path FROM categories, base_ops WHERE path like path_old || '%')
+DELETE FROM categories WHERE path IN targets;
+</sql><sql name="SQL 48">--SAVEPOINT &quot;DELETE_TARGETS&quot;;
+DROP VIEW IF EXISTS delete_targets;
+
+CREATE VIEW delete_targets AS
+WITH
+    json_ops(ops) AS (
+        VALUES
+            (json(
+				'['                                                                    ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;tcl/compat/zlib1/&quot;},'                 ||
+					'{&quot;op&quot;:&quot;delete&quot;, &quot;path_old&quot;:&quot;BAZ/dev/git4win/x32/mingw32/share/&quot;}' ||
+				']'
+            ))
+    ),
+    base_ops AS (
+        SELECT
+            &quot;key&quot; + 1 AS opid,
+            json_extract(value, '$.op') AS op,
+            json_extract(value, '$.path_old') AS path_old,
+            json_extract(value, '$.path_new') AS path_new
+        FROM json_ops AS jo, json_each(jo.ops) AS terms
+    )
+SELECT path FROM categories, base_ops WHERE path like path_old || '%' ORDER BY path DESC;
+
+DELETE FROM files_categories WHERE cat_id IN delete_targets;
+
+UPDATE categories
+SET (name, prefix) = (name || '~' || ascii_id, '~Trash/' || prefix)
+WHERE path IN delete_targets;
+
+DROP VIEW delete_targets;
+--RELEASE &quot;DELETE_TARGETS&quot;;
+</sql><sql name="&amp;Foreign-Key Check">PRAGMA foreign_key_check;</sql><current_tab id="38"/></tab_sql></sqlb_project>
