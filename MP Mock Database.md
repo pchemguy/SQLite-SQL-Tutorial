@@ -63,7 +63,7 @@ The category *name* should preferably include alphanumeric characters only. Othe
 
 There are several [approaches][TreesAndRDBMS] to encoding the *prefix* value based on an FS-like path using node names or IDs. With fixed length IDs, the path separator is unnecessary. For example, 8-character ASCII IDs and delimiterless VARCHAR(255) (where available) may encode a hierarchy with up to 32 levels. 
 
-The current schema follows several conventions facilitating MPs operations. *prefix* encoding uses plain FS-like paths with the forward slash as the path separator. All prefixes are absolute and include trailing but not leading slash to simplify code. Top-level nodes have the blank string, rather than the NULL, as their prefix. The *path* column, generated from *prefix* and *name*, is the target of a self-referential foreign key *prefix* &rarr; *path* to the parent category. (For now, both UPDATE and DELETE cascades are disabled. These cascades are only usable for basic scenarios and should not be relied upon in general.) The parent foreign key, providing an additional level of referential integrity, fails for top-level directories having blanks as their prefixes. Switching to the NULL-based root designation would resolve the issue, but the necessity to handle NULL prefixes may cause problems in other places. Instead, a system hidden category {"ascii_id":"00000000", "name":"~", "prefix":""} acts as a dummy super-root node and resolves the missing foreign key target for top-level nodes. The *path* code checks for this specific case and returns the blank string for the super-root. The *path* column is also the reference target of the foreign key from the *files_categories* table. This deliberate deviation from more natural *id* or *ascii_id* targets simplifies several operations. 
+The current schema follows several conventions facilitating MPs operations. *prefix* encoding uses plain FS-like paths with the forward slash as the path separator. All prefixes are absolute and include trailing but not leading slash to simplify code. Top-level nodes have the blank string, rather than the NULL, as their prefix. The *path* column, generated from *prefix* and *name*, is the target of a self-referential foreign key *prefix* &rarr; *path* to the parent category. For now, UPDATE and DELETE cascades are disabled on the parent reference. These cascades are only usable for basic scenarios and should not be relied upon in general. The parent foreign key, providing an additional level of referential integrity, fails for top-level directories having blanks as their prefixes. Switching to the NULL-based root designation would resolve the issue, but the necessity to handle NULL prefixes may cause problems in other places. Instead, a system hidden category, {"ascii_id":"00000000", "name":"~", "prefix":""}, acts as a dummy super-root node. It resolves the missing foreign key target for top-level nodes, and the *path* generation code ensures that the super-root references itself. The *path* column is also the reference target of the foreign key from the *files_categories* table. This deliberate deviation from more natural *id* or *ascii_id* targets simplifies several operations. 
 
 The *ascii_id* column is a random eight-character long string, which may contain alphanumeric ASCII characters, dash, and underscore (the last two characters bring the alphabet size to 2^6 characters). This column  encodes a 64-bit number generated from the *id* column. In practice, however, the process is the [opposite](../patterns/ascii-id). The ID-based prefix encoding may use this column in the future.
 
@@ -87,18 +87,17 @@ The demo *files* table has a minimalistic structure. The *path* column is not re
 CREATE TABLE files_categories (
     cat_id  TEXT COLLATE NOCASE,
     file_id TEXT COLLATE BINARY,
+    PRIMARY KEY (cat_id, file_id) ON CONFLICT IGNORE,
     CONSTRAINT fk_files_categories_categories FOREIGN KEY (cat_id)
       REFERENCES categories (path) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_files_categories_files FOREIGN KEY (file_id)
-      REFERENCES files (ascii_id) ON DELETE CASCADE,
-    CONSTRAINT uq_files_categories_cat_id_file_id UNIQUE (cat_id, file_id)
-      ON CONFLICT REPLACE
+      REFERENCES files (ascii_id) ON DELETE CASCADE
 );
 
 CREATE INDEX idx_files_categories_file_id ON files_categories (file_id);
 ~~~
 
-As discussed later, the delete category operation moves the target subtree to the *~Trash* category instead of deleting the records from the table. For this reason, the cascaded deletion on the foreign key to the *categories* table usually is a no-op. For a similar reason, the unique constraint is used instead of the primary key on the table columns. This constraint scheme permits setting constrained columns to null, facilitating the "move to Trash" operation mentioned above (see the relevant section for further details). The conflict resolution clause on the unique index simplifies the category move operation.
+The conflict resolution clause on the primary key simplifies the category merging process caused by move-related name conflict (the category subtree copy operation does not copy category assignments).
 
 
 <!-- References -->
