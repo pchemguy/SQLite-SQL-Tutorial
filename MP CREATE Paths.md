@@ -16,6 +16,7 @@ The CREATE script incorporates the following components:
 
 ~~~sql
 WITH
+    ------------------------------ PROLOGUE ------------------------------
     json_ops(ops) AS (
         VALUES
             (json(
@@ -34,6 +35,8 @@ WITH
             json_extract(value, '$.path_new') AS path_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
+    /********************************************************************/
+    --------------------------- ANCESTOR LIST ----------------------------
     levels AS (
         SELECT opid, path_new AS path, length(path_new) - length(replace(path_new, '/', '')) AS depth
         FROM base_ops
@@ -54,6 +57,7 @@ WITH
         GROUP BY asc_path
         ORDER BY opid, asc_path
     ),
+    /********************************************************************/
     path_terms AS (
         SELECT 
             row_number() OVER (ORDER BY opid, asc_path) AS counter,
@@ -62,6 +66,7 @@ WITH
         LEFT JOIN categories AS cats ON asc_path = cats.path
         WHERE cats.ascii_id IS NULL        
     ),
+    ------------------------- ASCII ID GENERATOR -------------------------
     id_counts(id_counter) AS (SELECT count(*) FROM path_terms),
     json_templates AS (SELECT '[' || replace(hex(zeroblob(id_counter*8/2-1)), '0', '0,') || '0,0]' AS json_template FROM id_counts),
     char_templates(char_template) AS (VALUES ('-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_')),
@@ -82,6 +87,7 @@ WITH
                (unicode(substr(ascii_id, 8, 1)) << 8*0) AS bin_id
         FROM ascii_ids
     ),
+    /********************************************************************/
     new_nodes AS (
         SELECT bin_id AS id, asc_name AS name, asc_prefix AS prefix
 		FROM path_terms, ids USING (counter)
