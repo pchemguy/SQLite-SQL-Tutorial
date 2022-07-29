@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Assets/database/Materialized Paths.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,16:mainfiles_categories"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="140"/><column index="2" value="69"/><column index="3" value="221"/><column index="4" value="300"/><column index="5" value="300"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="files_categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort><column index="1" mode="0"/></sort><column_widths><column index="1" value="300"/><column index="2" value="81"/></column_widths><filter_values><column index="1" value="/^preEEE/"/></filter_values><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="copy">WITH RECURSIVE
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Assets/database/Materialized Paths.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:maincategories"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="copy">WITH RECURSIVE
     ops_def(ops_json) AS (VALUES
         (json(
             '['                                                                                                  ||
@@ -945,25 +945,25 @@ SELECT * FROM path_terms; --new_nodes;</sql><sql name="Copy LOOP">WITH RECURSIVE
 SELECT * FROM LOOP_patchings_STEP_3;
 </sql><sql name="COPY NEW FULL">WITH RECURSIVE
     json_ops(ops) AS (
-		VALUES
-			(json(
-				'['                                                                                                  ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe00/&quot;, &quot;path_new&quot;:&quot;safe00/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe00/&quot;,                   &quot;path_new&quot;:&quot;safe/&quot;},'                     ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys2&quot;,             &quot;path_new&quot;:&quot;BAZ/dev/msys/&quot;},'             ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/preEEE/&quot;, &quot;path_new&quot;:&quot;preEEE/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modules/&quot;,             &quot;path_new&quot;:&quot;safe/modu/&quot;},'                ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modu/mod2/&quot;,           &quot;path_new&quot;:&quot;safe/modu/mod3/&quot;},'           ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/ssub00/&quot;, &quot;path_new&quot;:&quot;safe/ssub00/&quot;},'              ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/mingw32/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/&quot;},'         ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/ssub00/modules/&quot;,      &quot;path_new&quot;:&quot;safe/modules/&quot;},'             ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manYYY/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/nix/etc/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/misc/&quot;},'    ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manZZZ/&quot;, &quot;path_new&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;},' ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe11/&quot;, &quot;path_new&quot;:&quot;safe11/&quot;}'                    ||
-				']'
-			))
+        VALUES
+            (json(
+                '['                                                                                                  ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe00/&quot;, &quot;path_new&quot;:&quot;safe00/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe00/&quot;,                   &quot;path_new&quot;:&quot;safe/&quot;},'                     ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys2&quot;,             &quot;path_new&quot;:&quot;BAZ/dev/msys/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/preEEE/&quot;, &quot;path_new&quot;:&quot;preEEE/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modules/&quot;,             &quot;path_new&quot;:&quot;safe/modu/&quot;},'                ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modu/mod2/&quot;,           &quot;path_new&quot;:&quot;safe/modu/mod3/&quot;},'           ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/ssub00/&quot;, &quot;path_new&quot;:&quot;safe/ssub00/&quot;},'              ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/mingw32/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/&quot;},'         ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/ssub00/modules/&quot;,      &quot;path_new&quot;:&quot;safe/modules/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manYYY/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/nix/etc/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/misc/&quot;},'    ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manZZZ/&quot;, &quot;path_new&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;},' ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe11/&quot;, &quot;path_new&quot;:&quot;safe11/&quot;}'                    ||
+                ']'
+            ))
     ),
     base_ops AS (
         SELECT
@@ -973,50 +973,50 @@ SELECT * FROM LOOP_patchings_STEP_3;
             trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
-	subtrees_old AS (
-		SELECT opid, ascii_id, path_old
-		FROM base_ops, categories
-		WHERE path like rootpath_old || '%'
-		ORDER BY opid, path
-	),
+    subtrees_old AS (
+        SELECT opid, ascii_id, path_old
+        FROM base_ops, categories
+        WHERE path like rootpath_old || '%'
+        ORDER BY opid, path
+    ),
     LOOP_COPY AS (
-			SELECT 0 AS opid, ascii_id, path_old AS path_new
-			FROM subtrees_old
+            SELECT 0 AS opid, ascii_id, path_old AS path_new
+            FROM subtrees_old
         UNION ALL
-			SELECT ops.opid, ascii_id, path_new
-			FROM LOOP_COPY AS BUFFER, base_ops AS ops
-			WHERE ops.opid = BUFFER.opid + 1
-		UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-			       replace(path_new, rootpath_old, rootpath_new) AS path_new
+            SELECT ops.opid, ascii_id, path_new
             FROM LOOP_COPY AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
-			  AND BUFFER.path_new like rootpath_old || '%'			
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
     ),
-	subtrees_new_base AS (
-		SELECT ascii_id, path_new
-		FROM LOOP_COPY
-		WHERE opid = (SELECT max(opid) FROM base_ops)
-		  AND length(ascii_id) &gt; 8
-		GROUP BY ascii_id, path_new
-		ORDER BY path_new
-	),
-	subtrees_path AS (
-		SELECT path_new FROM subtrees_new_base GROUP BY path_new
-	),
-	subtrees_new AS (
-		SELECT
-			json_extract('[&quot;' || replace(trim(path_new, '/'), '/', '&quot;, &quot;') || '&quot;]', '$[#-1]') AS name_new,
-			path_new
-		FROM subtrees_path LEFT JOIN categories AS cats ON path_new = path
-		WHERE ascii_id IS NULL
-	),	
-	new_paths AS (
-		SELECT row_number() OVER (ORDER BY path_new) - 1 AS counter, 
-		       substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
-			   subtrees_new.*
-		FROM subtrees_new
-	),
+    subtrees_new_base AS (
+        SELECT ascii_id, path_new
+        FROM LOOP_COPY
+        WHERE opid = (SELECT max(opid) FROM base_ops)
+          AND length(ascii_id) &gt; 8
+        GROUP BY ascii_id, path_new
+        ORDER BY path_new
+    ),
+    subtrees_path AS (
+        SELECT path_new FROM subtrees_new_base GROUP BY path_new
+    ),
+    subtrees_new AS (
+        SELECT
+            json_extract('[&quot;' || replace(trim(path_new, '/'), '/', '&quot;, &quot;') || '&quot;]', '$[#-1]') AS name_new,
+            path_new
+        FROM subtrees_path LEFT JOIN categories AS cats ON path_new = path
+        WHERE ascii_id IS NULL
+    ),    
+    new_paths AS (
+        SELECT row_number() OVER (ORDER BY path_new) - 1 AS counter, 
+               substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
+               subtrees_new.*
+        FROM subtrees_new
+    ),
     id_counts(id_counter) AS (SELECT count(*) FROM new_paths),
     json_templates AS (SELECT '[' || replace(hex(zeroblob(id_counter*8/2-1)), '0', '0,') || '0,0]' AS json_template FROM id_counts),
     char_templates(char_template) AS (VALUES ('-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_')),
@@ -1040,31 +1040,31 @@ SELECT * FROM LOOP_patchings_STEP_3;
     new_nodes AS (SELECT bin_id AS id, name_new AS name, prefix_new AS prefix FROM new_paths, ids USING (counter))
 INSERT INTO categories (id, name, prefix)
 SELECT * FROM new_nodes;</sql><sql name="MOVE NEW FULL">CREATE TEMP TABLE IF NOT EXISTS move_targets (
-	ascii_id, path_old, path_new, prefix_new, name_new, target_exists
+    ascii_id, path_old, path_new, prefix_new, name_new, target_exists
 );
 DELETE FROM temp.move_targets;
 
 WITH RECURSIVE
     json_ops(ops) AS (
-		VALUES
-			(json(
-				'['                                                                                                  ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe00/&quot;, &quot;path_new&quot;:&quot;safe00/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe00/&quot;,                   &quot;path_new&quot;:&quot;safe/&quot;},'                     ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys2&quot;,             &quot;path_new&quot;:&quot;BAZ/dev/msys/&quot;},'             ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/preEEE/&quot;, &quot;path_new&quot;:&quot;preEEE/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modules/&quot;,             &quot;path_new&quot;:&quot;safe/modu/&quot;},'                ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modu/mod2/&quot;,           &quot;path_new&quot;:&quot;safe/modu/mod3/&quot;},'           ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/ssub00/&quot;, &quot;path_new&quot;:&quot;safe/ssub00/&quot;},'              ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/mingw32/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/&quot;},'         ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/ssub00/modules/&quot;,      &quot;path_new&quot;:&quot;safe/modules/&quot;},'             ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manYYY/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/nix/etc/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/misc/&quot;},'    ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manZZZ/&quot;, &quot;path_new&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;},' ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
-					'{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe11/&quot;, &quot;path_new&quot;:&quot;safe11/&quot;}'                    ||
-				']'
-			))
+        VALUES
+            (json(
+                '['                                                                                                  ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe00/&quot;, &quot;path_new&quot;:&quot;safe00/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe00/&quot;,                   &quot;path_new&quot;:&quot;safe/&quot;},'                     ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys2&quot;,             &quot;path_new&quot;:&quot;BAZ/dev/msys/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/preEEE/&quot;, &quot;path_new&quot;:&quot;preEEE/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modules/&quot;,             &quot;path_new&quot;:&quot;safe/modu/&quot;},'                ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modu/mod2/&quot;,           &quot;path_new&quot;:&quot;safe/modu/mod3/&quot;},'           ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/ssub00/&quot;, &quot;path_new&quot;:&quot;safe/ssub00/&quot;},'              ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/mingw32/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/&quot;},'         ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/ssub00/modules/&quot;,      &quot;path_new&quot;:&quot;safe/modules/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manYYY/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/nix/etc/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/misc/&quot;},'    ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manZZZ/&quot;, &quot;path_new&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;},' ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe11/&quot;, &quot;path_new&quot;:&quot;safe11/&quot;}'                    ||
+                ']'
+            ))
     ),
     base_ops AS (
         SELECT
@@ -1074,43 +1074,43 @@ WITH RECURSIVE
             trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
-	subtrees_old AS (
-		SELECT opid, ascii_id, path AS path_old
-		FROM base_ops, categories
-		WHERE path like rootpath_old || '%'
-		ORDER BY opid, path_old
-	),
+    subtrees_old AS (
+        SELECT opid, ascii_id, path AS path_old
+        FROM base_ops, categories
+        WHERE path like rootpath_old || '%'
+        ORDER BY opid, path_old
+    ),
     LOOP_MOVE AS (
-			SELECT 0 AS opid, ascii_id, path_old AS path_new
-			FROM subtrees_old
-		UNION ALL
+            SELECT 0 AS opid, ascii_id, path_old AS path_new
+            FROM subtrees_old
+        UNION ALL
             SELECT ops.opid, ascii_id,
-			       replace(path_new, rootpath_old, rootpath_new) AS path_new
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
             FROM LOOP_MOVE AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
     ),
-	subtrees_new_base AS (
-		SELECT
-			ascii_id, path_new,
-			json_extract('[&quot;' || replace(trim(path_new, '/'), '/', '&quot;, &quot;') || '&quot;]', '$[#-1]') AS name_new
-		FROM LOOP_MOVE
-		WHERE opid = (SELECT max(base_ops.opid) FROM base_ops)
-	),
-	subtrees_path AS (
-		SELECT
-			trnew.ascii_id, path_old, path_new,
-			substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
-			name_new
-		FROM subtrees_new_base AS trnew, subtrees_old AS trold
-		WHERE trnew.ascii_id = trold.ascii_id
-		  AND path_old &lt;&gt; path_new
-	),
-	new_paths AS (
-		SELECT
-			subtrees_path.*,
-			(cats.ascii_id IS NOT NULL) + (row_number() OVER (PARTITION BY path_new) - 1) AS target_exists
-		FROM subtrees_path LEFT JOIN categories AS cats ON path_new = path
-	)
+    subtrees_new_base AS (
+        SELECT
+            ascii_id, path_new,
+            json_extract('[&quot;' || replace(trim(path_new, '/'), '/', '&quot;, &quot;') || '&quot;]', '$[#-1]') AS name_new
+        FROM LOOP_MOVE
+        WHERE opid = (SELECT max(base_ops.opid) FROM base_ops)
+    ),
+    subtrees_path AS (
+        SELECT
+            trnew.ascii_id, path_old, path_new,
+            substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
+            name_new
+        FROM subtrees_new_base AS trnew, subtrees_old AS trold
+        WHERE trnew.ascii_id = trold.ascii_id
+          AND path_old &lt;&gt; path_new
+    ),
+    new_paths AS (
+        SELECT
+            subtrees_path.*,
+            (cats.ascii_id IS NOT NULL) + (row_number() OVER (PARTITION BY path_new) - 1) AS target_exists
+        FROM subtrees_path LEFT JOIN categories AS cats ON path_new = path
+    )
 INSERT INTO temp.move_targets (ascii_id, path_old, path_new, prefix_new, name_new, target_exists)
 SELECT * FROM new_paths ORDER BY target_exists, path_old;
 
@@ -1134,22 +1134,6 @@ WHERE path IN (
 );
 
 RELEASE &quot;MOVE_CATS&quot;;
-
-
-/*
-UPDATE categories SET (name, prefix) = (name_new, prefix_new)
-FROM temp.move_targets AS mvt
-WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
-*/
-
---SELECT * FROM temp.move_targets;
-
---INSERT INTO categories (id, name, prefix)
-
-/*
-UPDATE categories SET (name, prefix) = (name_new, prefix_new)
-FROM temp.move_targets AS mvt
-WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
 </sql><sql name="SQL 63">SELECT * FROM temp.move_targets;
 --DROP TABLE IF EXISTS temp.move_targets;</sql><sql name="SQL 64">--CREATE TEMP TABLE &quot;cats_temp&quot; (&quot;id&quot;, &quot;ascii_id&quot;, &quot;name&quot;, &quot;prefix&quot;, &quot;path&quot;);
 --INSERT INTO temp.cats_temp SELECT * FROM categories;
@@ -1165,4 +1149,121 @@ FROM temp.cats_temp GROUP BY name, prefix HAVING counter &gt; 1;
 UPDATE categories SET (name, prefix) = (name_new, prefix_new)
 FROM temp.move_targets AS mvt
 WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
-</sql><current_tab id="8"/></tab_sql></sqlb_project>
+</sql><sql name="SQL 67">WITH RECURSIVE
+    json_ops(ops) AS (
+        VALUES
+            (json(
+                '['                                                                                                  ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe00/&quot;, &quot;path_new&quot;:&quot;safe00/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe00/&quot;,                   &quot;path_new&quot;:&quot;safe/&quot;},'                     ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys2&quot;,             &quot;path_new&quot;:&quot;BAZ/dev/msys/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/preEEE/&quot;, &quot;path_new&quot;:&quot;preEEE/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modules/&quot;,             &quot;path_new&quot;:&quot;safe/modu/&quot;},'                ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/modu/mod2/&quot;,           &quot;path_new&quot;:&quot;safe/modu/mod3/&quot;},'           ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/ssub00/&quot;, &quot;path_new&quot;:&quot;safe/ssub00/&quot;},'              ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/mingw32/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/&quot;},'         ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;safe/ssub00/modules/&quot;,      &quot;path_new&quot;:&quot;safe/modules/&quot;},'             ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manYYY/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/dev/msys/nix/etc/&quot;,     &quot;path_new&quot;:&quot;BAZ/dev/msys/nix/misc/&quot;},'    ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/manZZZ/&quot;, &quot;path_new&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;},' ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/man000/&quot;, &quot;path_new&quot;:&quot;man000/&quot;},'                   ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;BAZ/bld/tcl/tests/safe11/&quot;, &quot;path_new&quot;:&quot;safe11/&quot;}'                    ||
+                ']'
+            ))
+    ),
+    base_ops AS (
+        SELECT
+            &quot;key&quot; + 1 AS opid,
+            json_extract(value, '$.op') AS op,
+            trim(json_extract(value, '$.path_old'), '/') || '/' AS rootpath_old,
+            trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
+        FROM json_ops AS jo, json_each(jo.ops) AS terms
+    ),
+    subtrees_old AS (
+        SELECT opid, ascii_id, path AS path_old
+        FROM base_ops, categories
+        WHERE path like rootpath_old || '%'
+        ORDER BY opid, path
+    ),
+    LOOP_COPY AS (
+            SELECT 0 AS opid, ascii_id, path_old AS path_new
+            FROM subtrees_old
+        UNION ALL
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    
+    -------------------------------------------------------------------------------
+    LOOP_COPY_INIT AS (
+        SELECT 0 AS opid, ascii_id, path_old AS path_new
+        FROM subtrees_old
+    ),
+    LOOP_COPY_STEP_1 AS (
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY_INIT AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY_INIT AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    LOOP_COPY_STEP_2 AS (
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY_STEP_1 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY_STEP_1 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    LOOP_COPY_STEP_3 AS (
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY_STEP_2 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY_STEP_2 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    LOOP_COPY_STEP_STOP AS (
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY_STEP_3 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = (SELECT max(base_ops.opid) + 1 FROM base_ops)
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY_STEP_3 AS BUFFER, base_ops AS ops
+            WHERE ops.opid = (SELECT max(base_ops.opid) + 1 FROM base_ops)
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    -------------------------------------------------------------------------------
+    
+    subtrees_new_base AS (
+        SELECT ascii_id, path_new
+        FROM LOOP_COPY
+        WHERE opid = (SELECT max(opid) FROM base_ops)
+          AND length(ascii_id) &gt; 8
+        GROUP BY ascii_id, path_new
+        ORDER BY path_new
+    )
+    
+-- SELECT * FROM subtrees_new_base;
+-- SELECT * FROM LOOP_COPY_INIT;
+-- SELECT * FROM LOOP_COPY_STEP_1;
+-- SELECT * FROM LOOP_COPY_STEP_2;
+-- SELECT * FROM LOOP_COPY_STEP_3;
+SELECT * FROM LOOP_COPY_STEP_STOP;
+</sql><current_tab id="11"/></tab_sql></sqlb_project>
