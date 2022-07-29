@@ -23,10 +23,10 @@ WITH
         SELECT
             "key" + 1 AS opid,
             json_extract(value, '$.op') AS op,
-            json_extract(value, '$.path_old') AS path_old,
-            json_extract(value, '$.path_new') AS path_new
+            json_extract(value, '$.path_old') AS rootpath_old,
+            json_extract(value, '$.path_new') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
-    targets AS (SELECT path FROM categories, base_ops WHERE path like path_old || '%')
+    targets AS (SELECT path FROM categories, base_ops WHERE path like rootpath_old || '%')
 DELETE FROM categories WHERE path IN targets;
 ~~~

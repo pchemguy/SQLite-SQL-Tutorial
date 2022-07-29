@@ -31,14 +31,14 @@ WITH
         SELECT
             "key" + 1 AS opid,
             json_extract(value, '$.op') AS op,
-            json_extract(value, '$.path_old') AS path_old,
-            json_extract(value, '$.path_new') AS path_new
+            json_extract(value, '$.path_old') AS rootpath_old,
+            json_extract(value, '$.path_new') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
     /********************************************************************/
     --------------------------- ANCESTOR LIST ----------------------------
     levels AS (
-        SELECT opid, path_new AS path, length(path_new) - length(replace(path_new, '/', '')) AS depth
+        SELECT opid, rootpath_new AS path, length(rootpath_new) - length(replace(rootpath_new, '/', '')) AS depth
         FROM base_ops
     ),
     json_objs AS (
@@ -92,6 +92,6 @@ WITH
         SELECT bin_id AS id, asc_name AS name, asc_prefix AS prefix
 		FROM path_terms, ids USING (counter)
 	)
-INSERT INTO categories (id, name, prefix)
+--INSERT INTO categories (id, name, prefix)
 SELECT * FROM new_nodes;
 ~~~

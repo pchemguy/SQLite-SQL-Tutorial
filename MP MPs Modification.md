@@ -43,8 +43,8 @@ WITH
         SELECT
             "key" + 1 AS opid,
             json_extract(value, '$.op') AS op,
-            json_extract(value, '$.path_old') AS path_old,
-            json_extract(value, '$.path_new') AS path_new
+            json_extract(value, '$.path_old') AS rootpath_old,
+            json_extract(value, '$.path_new') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     )
 SELECT * FROM base_ops;
@@ -52,11 +52,11 @@ SELECT * FROM base_ops;
 
 **Output**
 
-| opid | op   | path_old                  | path_new |
-|------|------|---------------------------|----------|
-| 1    | move | BAZ/bld/tcl/tests/safe00/ | safe00/  |
-| 2    | move | safe00/                   | safe/    |
-| 3    | move | BAZ/bld/tcl/tests/safe11/ | safe11/  |
+| opid | op   | rootpath_old              | rootpath_new |
+|------|------|---------------------------|--------------|
+| 1    | move | BAZ/bld/tcl/tests/safe00/ | safe00/      |
+| 2    | move | safe00/                   | safe/        |
+| 3    | move | BAZ/bld/tcl/tests/safe11/ | safe11/      |
 
 ---
 
