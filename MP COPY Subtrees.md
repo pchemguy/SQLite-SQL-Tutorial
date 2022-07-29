@@ -1,17 +1,12 @@
 ---
 layout: default
-title: MOVE Subtrees
-nav_order: 8
+title: COPY Subtrees
+nav_order: 9
 parent: Materialized Paths
-permalink: /mat-paths/move
+permalink: /mat-paths/copy
 ---
 
 ~~~sql
-CREATE TEMP TABLE IF NOT EXISTS move_targets (
-    ascii_id, path_old, path_new, prefix_new, name_new, target_exists
-);
-DELETE FROM temp.move_targets;
-
 WITH RECURSIVE
     json_ops(ops) AS (
         VALUES
@@ -43,63 +38,70 @@ WITH RECURSIVE
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
     subtrees_old AS (
-        SELECT opid, ascii_id, path AS path_old
+        SELECT opid, ascii_id, path_old
         FROM base_ops, categories
         WHERE path like rootpath_old || '%'
-        ORDER BY opid, path_old
+        ORDER BY opid, path
     ),
-    LOOP_MOVE AS (
+    LOOP_COPY AS (
             SELECT 0 AS opid, ascii_id, path_old AS path_new
             FROM subtrees_old
         UNION ALL
-            SELECT ops.opid, ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_MOVE AS BUFFER, base_ops AS ops
+            SELECT ops.opid, ascii_id, path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid, '~' || ascii_id AS ascii_id,
+                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
     ),
     subtrees_new_base AS (
-        SELECT
-            ascii_id, path_new,
-            json_extract('["' || replace(trim(path_new, '/'), '/', '", "') || '"]', '$[#-1]') AS name_new
-        FROM LOOP_MOVE
-        WHERE opid = (SELECT max(base_ops.opid) FROM base_ops)
+        SELECT ascii_id, path_new
+        FROM LOOP_COPY
+        WHERE opid = (SELECT max(opid) FROM base_ops)
+          AND length(ascii_id) > 8
+        GROUP BY ascii_id, path_new
+        ORDER BY path_new
     ),
     subtrees_path AS (
-        SELECT
-            trnew.ascii_id, path_old, path_new,
-            substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
-            name_new
-        FROM subtrees_new_base AS trnew, subtrees_old AS trold
-        WHERE trnew.ascii_id = trold.ascii_id
-          AND path_old <> path_new
+        SELECT path_new FROM subtrees_new_base GROUP BY path_new
     ),
-    new_paths AS (
+    subtrees_new AS (
         SELECT
-            subtrees_path.*,
-            (cats.ascii_id IS NOT NULL) + (row_number() OVER (PARTITION BY path_new) - 1) AS target_exists
+            json_extract('["' || replace(trim(path_new, '/'), '/', '", "') || '"]', '$[#-1]') AS name_new,
+            path_new
         FROM subtrees_path LEFT JOIN categories AS cats ON path_new = path
-    )
-INSERT INTO temp.move_targets (ascii_id, path_old, path_new, prefix_new, name_new, target_exists)
-SELECT * FROM new_paths ORDER BY target_exists, path_old;
-
-
-PRAGMA defer_foreign_keys = 1;
-SAVEPOINT "MOVE_CATS";
-
-UPDATE categories SET (name, prefix) = (name_new, prefix_new)
-FROM temp.move_targets AS mvt
-WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
-
-UPDATE files_categories SET cat_id = path_new
-FROM temp.move_targets AS mvt
-WHERE mvt.path_old = cat_id;
-
-DELETE FROM categories
-WHERE path IN (
-	SELECT path_old
-	FROM temp.move_targets AS mvt
-	WHERE mvt.target_exists = 1
-);
-
-RELEASE "MOVE_CATS";
+        WHERE ascii_id IS NULL
+    ),    
+    new_paths AS (
+        SELECT row_number() OVER (ORDER BY path_new) - 1 AS counter, 
+               substr(path_new, 1, length(path_new) - length(name_new) - 1) AS prefix_new,
+               subtrees_new.*
+        FROM subtrees_new
+    ),
+    id_counts(id_counter) AS (SELECT count(*) FROM new_paths),
+    json_templates AS (SELECT '[' || replace(hex(zeroblob(id_counter*8/2-1)), '0', '0,') || '0,0]' AS json_template FROM id_counts),
+    char_templates(char_template) AS (VALUES ('-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_')),
+    ascii_ids AS (
+        SELECT group_concat(substr(char_template, (random() & 63) + 1, 1), '') AS ascii_id, "key"/8 AS counter
+        FROM char_templates, json_templates, json_each(json_templates.json_template) AS terms
+        GROUP BY counter
+    ),
+    ids AS (
+        SELECT counter, ascii_id,
+               (unicode(substr(ascii_id, 1, 1)) << 8*7) +
+               (unicode(substr(ascii_id, 2, 1)) << 8*6) +
+               (unicode(substr(ascii_id, 3, 1)) << 8*5) +
+               (unicode(substr(ascii_id, 4, 1)) << 8*4) +
+               (unicode(substr(ascii_id, 5, 1)) << 8*3) +
+               (unicode(substr(ascii_id, 6, 1)) << 8*2) +
+               (unicode(substr(ascii_id, 7, 1)) << 8*1) +
+               (unicode(substr(ascii_id, 8, 1)) << 8*0) AS bin_id
+        FROM ascii_ids
+    ),
+    new_nodes AS (SELECT bin_id AS id, name_new AS name, prefix_new AS prefix FROM new_paths, ids USING (counter))
+INSERT INTO categories (id, name, prefix)
+SELECT * FROM new_nodes;
 ~~~
