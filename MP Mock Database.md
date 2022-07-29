@@ -87,7 +87,7 @@ The demo *files* table has a minimalistic structure. The *path* column is not re
 CREATE TABLE files_categories (
     cat_id  TEXT COLLATE NOCASE,
     file_id TEXT COLLATE BINARY,
-    PRIMARY KEY (cat_id, file_id) ON CONFLICT IGNORE,
+    PRIMARY KEY (cat_id, file_id) ON CONFLICT REPLACE,
     CONSTRAINT fk_files_categories_categories FOREIGN KEY (cat_id)
       REFERENCES categories (path) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT fk_files_categories_files FOREIGN KEY (file_id)
@@ -97,7 +97,7 @@ CREATE TABLE files_categories (
 CREATE INDEX idx_files_categories_file_id ON files_categories (file_id);
 ~~~
 
-The conflict resolution clause on the primary key simplifies the category merging process caused by move-related name conflict (the category subtree copy operation does not copy category assignments).
+The conflict resolution clause on the primary key simplifies the category merging process caused by move-related name conflict (a related copy operation does not copy category assignments).
 
 
 <!-- References -->
