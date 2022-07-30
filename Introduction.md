@@ -58,9 +58,9 @@ Summary of topics:
 [refactoring]: https://en.wikipedia.org/wiki/Code_refactoring
 [middleware]: https://en.wikipedia.org/wiki/Middleware
 
-[Metadata and Reflection]: ../meta
-[Design Patterns]: ../patterns
-[Materialized Paths]: ../mat-paths
+[Metadata and Reflection]: meta
+[Design Patterns]: patterns
+[Materialized Paths]: mat-paths
 
 [SQLite Apps]: https://sqlite.org/whentouse.html
 [CTEs]: https://sqlite.org/lang_with.html
