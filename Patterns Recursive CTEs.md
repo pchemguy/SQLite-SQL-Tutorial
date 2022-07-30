@@ -6,107 +6,102 @@ parent: Design Patterns
 permalink: /patterns/rec-cte
 ---
 
+[Recursive CTEs][] is
+
 ~~~sql
 WITH RECURSIVE
-    json_ops(ops) AS (
+	folders(path_old) AS (
+		VALUES
+			('doc/thesis/exp'),
+			('doc/thesis/theory'),
+			('doc/app/job/lor'),
+			('code/scripts/py'),
+			('code/scripts/bas')
+	),
+    ops(opid, rootpath_old, rootpath_new) AS (
         VALUES
-            (json(
-                '['                                                                                                  ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/safe00/", "path_new":"safe00/"},'                   ||
-                    '{"op":"move", "path_old":"safe00/",                   "path_new":"safe/"},'                     ||
-                    '{"op":"move", "path_old":"BAZ/dev/msys2",             "path_new":"BAZ/dev/msys/"},'             ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/preEEE/", "path_new":"preEEE/"},'                   ||
-                    '{"op":"move", "path_old":"safe/modules/",             "path_new":"safe/modu/"},'                ||
-                    '{"op":"move", "path_old":"safe/modu/mod2/",           "path_new":"safe/modu/mod3/"},'           ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/ssub00/", "path_new":"safe/ssub00/"},'              ||
-                    '{"op":"move", "path_old":"BAZ/dev/msys/mingw32/",     "path_new":"BAZ/dev/msys/nix/"},'         ||
-                    '{"op":"move", "path_old":"safe/ssub00/modules/",      "path_new":"safe/modules/"},'             ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/manYYY/", "path_new":"man000/"},'                   ||
-                    '{"op":"move", "path_old":"BAZ/dev/msys/nix/etc/",     "path_new":"BAZ/dev/msys/nix/misc/"},'    ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/manZZZ/", "path_new":"BAZ/bld/tcl/tests/man000/"},' ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/man000/", "path_new":"man000/"},'                   ||
-                    '{"op":"move", "path_old":"BAZ/bld/tcl/tests/safe11/", "path_new":"safe11/"}'                    ||
-                ']'
-            ))
-    ),
-    base_ops AS (
-        SELECT
-            "key" + 1 AS opid,
-            json_extract(value, '$.op') AS op,
-            trim(json_extract(value, '$.path_old'), '/') || '/' AS rootpath_old,
-            trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
-        FROM json_ops AS jo, json_each(jo.ops) AS terms
-    ),
-    subtrees_old AS (
-        SELECT opid, ascii_id, path AS path_old
-        FROM base_ops, categories
-        WHERE path like rootpath_old || '%'
-        ORDER BY opid, path
+			(1, 'doc/',            'docABC'                 ),
+			(2, 'docABC/thesis/',  'docABC/master'          ),
+			(3, 'docABC/app/job/', 'docABC/app/academic_job'),
+			(4, 'code/',           'prog'                   )
     ),
     LOOP_COPY AS (
-            SELECT 0 AS opid, ascii_id, path_old AS path_new
-            FROM subtrees_old
+            SELECT 0 AS opid, path_old AS path_new
+            FROM folders
         UNION ALL
-            SELECT ops.opid, ascii_id, path_new
-            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_COPY AS BUFFER, base_ops AS ops
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
     
     -------------------------------------------------------------------------------
+    -------------------------------------------------------------------------------
     LOOP_COPY_INIT AS (
-        SELECT 0 AS opid, ascii_id, path_old AS path_new
-        FROM subtrees_old
+			SELECT 0 AS opid, path_old AS path_new
+			FROM folders
     ),
     LOOP_COPY_STEP_1 AS (
-            SELECT ops.opid, ascii_id, path_new
-            FROM LOOP_COPY_INIT AS BUFFER, base_ops AS ops
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY_INIT AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_COPY_INIT AS BUFFER, base_ops AS ops
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY_INIT AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
     LOOP_COPY_STEP_2 AS (
-            SELECT ops.opid, ascii_id, path_new
-            FROM LOOP_COPY_STEP_1 AS BUFFER, base_ops AS ops
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY_STEP_1 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_COPY_STEP_1 AS BUFFER, base_ops AS ops
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY_STEP_1 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
     LOOP_COPY_STEP_3 AS (
-            SELECT ops.opid, ascii_id, path_new
-            FROM LOOP_COPY_STEP_2 AS BUFFER, base_ops AS ops
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY_STEP_2 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_COPY_STEP_2 AS BUFFER, base_ops AS ops
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY_STEP_2 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
-    LOOP_COPY_STEP_STOP AS (
-            SELECT ops.opid, ascii_id, path_new
-            FROM LOOP_COPY_STEP_3 AS BUFFER, base_ops AS ops
-            WHERE ops.opid = (SELECT max(base_ops.opid) + 1 FROM base_ops)
+    LOOP_COPY_STEP_4 AS (
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY_STEP_3 AS BUFFER, ops
+            WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
-            SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
-            FROM LOOP_COPY_STEP_3 AS BUFFER, base_ops AS ops
-            WHERE ops.opid = (SELECT max(base_ops.opid) + 1 FROM base_ops)
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY_STEP_3 AS BUFFER, ops
+            WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
+    LOOP_COPY_STEP_5_STOP AS (
+            SELECT ops.opid, path_new
+            FROM LOOP_COPY_STEP_4 AS BUFFER, ops
+            WHERE ops.opid = BUFFER.opid + 1
+        UNION ALL
+            SELECT ops.opid,
+				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY_STEP_4 AS BUFFER, ops
+            WHERE ops.opid = BUFFER.opid + 1
+              AND BUFFER.path_new like rootpath_old || '%'            
+    ),
+    -------------------------------------------------------------------------------
     -------------------------------------------------------------------------------
     
     subtrees_new_base AS (
@@ -123,5 +118,12 @@ WITH RECURSIVE
 -- SELECT * FROM LOOP_COPY_STEP_1;
 -- SELECT * FROM LOOP_COPY_STEP_2;
 -- SELECT * FROM LOOP_COPY_STEP_3;
-SELECT * FROM LOOP_COPY_STEP_STOP;
+-- SELECT * FROM LOOP_COPY_STEP_4;
+-- SELECT * FROM LOOP_COPY_STEP_5_STOP;
+SELECT * FROM LOOP_COPY;
 ~~~
+
+
+<!-- References -->
+
+[Recursive CTEs]: https://sqlite.org/lang_with.html#recursive_common_table_expressions
