@@ -7,6 +7,20 @@ permalink: /
 
 This project discusses select practical SQL problems and the associated solutions. I primarily use this project to organize my acquired SQL/[SQLite][] knowledge. A separate project (the [SQLiteC for VBA][SQLiteCAdoReflectVBA] library) serves a similar purpose for the C-API interface of the library and its integration into an information management application. My interest in SQLite is motivated by the need for local personal and research information management. Special consideration is given to storing tree structures used for information classification. I am particularly interested in use cases necessitating short database response times (as measured by the application) on the order of 10-20 ms and up to 50-100 ms for relatively simple and more complicated queries, respectively. Realistically, only an embedded database engine might be able to meet these specs, hence my interest in SQLite and the scope of the discussed topics. While I attempt to make the material accessible, this tutorial may not be suitable for first-timers.
 
+### Project application scope and motivation
+
+[SQL][] is a [domain-specific][] [declarative][] programming language; by design, it either lacks completely or provides only rudimentary support for many essential features available in [general-purpose][] languages. Support for other features may only be available through vendor-specific extensions. Limited support for procedural and structured code, variables, and flow control constructs impedes the development of loosely [coupled][coupling] SQL code amendable to [refactoring][] and code reuse. The scope of these limitations is vendor-specific, and SQLite, for a good reason, is more affected than popular client/server database engines. On the other hand, the extent to which these limitations may hinder the development of database-oriented applications depends on specific circumstances.
+
+For example, developers often delegate SQL generation to [middleware][] components, minimizing the need to write SQL directly. Middleware decouples applications from SQL and often provides unified multi-vendor APIs. This added abstraction layer, however, also imposes additional limitations, making SQL limitations largely irrelevant. While the increased level of abstraction facilitates the development process, it also adds a varying run-time performance penalty (which may not be an issue).
+
+At the other extreme is the development strategy not relying on SQL abstracting components, which exposes all features of a particular SQL dialect and its limitations to the developer. Whether these limitations become an issue depends on how much extra work the database performs on top of base data retrieval and persistence operations. Delegating higher-level model-related data manipulations to the database may provide several benefits:
+
+  - Efficient data manipulation operations are at the core of database engines. If the desired result involves a substantial amount of such operations, often the database may do the job more efficiently.
+  - Minimizing data transfers between the database and the application is almost always beneficial. Such operations are inherently slow (to a lesser extent for embedded in-process engines, such as SQLite), and the characteristic time of data transfer operations can be several magnitudes higher than local processing times.
+  - Implementing model-related logic in the SQL code may resemble the object-oriented paradigm and reduce coupling between the application and its backend. Such code chunks can be used by various frontends on different platforms without any modification so long as the backend remains the same.
+
+SQLite supports several advanced features facilitating the development of structured, reusable, and loosely coupled SQL code, including parameterized queries, common table expressions (CTEs), recursive CTEs, and the JSON library. The [Metadata and Reflection][] section provides basic and more advanced SQL queries for retrieving database- and engine-related metadata, illustrating the use of simple CTEs for structuring SQL code. The [Design Patterns][] section discusses all these mentioned features in detail. It also provides possible approaches to compensating for the missing support for variables and limited support for string operations, illustrating the utility of these features. Finally, the [Materialized Paths][] applies discussed ideas to a sample implementation of a hierarchical category system in SQL. This section explores the possibility of developing an OOP-like SQL source code library implementing all typical operations for such a system in SQL.
+
 ### Structured developement strategies and separation of concerns
 
 Because of the [target uses][SQLite Apps], SQLite lacks several useful features provided by more powerful client/server RDBMS engines, such as stored procedures, support for variables, and dynamic SQL. The absence of these features limits the ability to develop structured/modularized SQL code and separate the internal database organization and application business logic. Another possible concern is associated with SQLite's limited string manipulation capabilities.
@@ -35,6 +49,19 @@ Summary of topics:
 
 [SQLite]: https://sqlite.org
 [SQLiteCAdoReflectVBA]: https://pchemguy.github.io/SQLiteC-for-VBA/
+
+[SQL]: https://en.wikipedia.org/wiki/SQL
+[domain-specific]: https://en.wikipedia.org/wiki/Domain-specific_language
+[declarative]: https://en.wikipedia.org/wiki/Declarative_programming
+[general-purpose]: https://en.wikipedia.org/wiki/General-purpose_language
+[coupling]: https://en.wikipedia.org/wiki/Coupling_(computer_programming)
+[refactoring]: https://en.wikipedia.org/wiki/Code_refactoring
+[middleware]: https://en.wikipedia.org/wiki/Middleware
+
+[Metadata and Reflection]: ../meta
+[Design Patterns]: ../patterns
+[Materialized Paths]: ../mat-paths
+
 [SQLite Apps]: https://sqlite.org/whentouse.html
 [CTEs]: https://sqlite.org/lang_with.html
 [RCTEs]: https://sqlite.org/lang_with.html#recursive_common_table_expressions
