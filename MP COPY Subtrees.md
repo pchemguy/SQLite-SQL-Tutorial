@@ -34,11 +34,11 @@ WITH RECURSIVE
             "key" + 1 AS opid,
             json_extract(value, '$.op') AS op,
             trim(json_extract(value, '$.path_old'), '/') || '/' AS rootpath_old,
-            trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
+            trim(json_extract(value, '$.path_new'), '/') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
     subtrees_old AS (
-        SELECT opid, ascii_id, path_old
+        SELECT opid, ascii_id, path AS path_old
         FROM base_ops, categories
         WHERE path like rootpath_old || '%'
         ORDER BY opid, path
@@ -52,7 +52,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid, '~' || ascii_id AS ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            

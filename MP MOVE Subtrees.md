@@ -39,7 +39,7 @@ WITH RECURSIVE
             "key" + 1 AS opid,
             json_extract(value, '$.op') AS op,
             trim(json_extract(value, '$.path_old'), '/') || '/' AS rootpath_old,
-            trim(json_extract(value, '$.path_new'), '/') || '/' AS rootpath_new
+            trim(json_extract(value, '$.path_new'), '/') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
     subtrees_old AS (
@@ -53,7 +53,9 @@ WITH RECURSIVE
             FROM subtrees_old
         UNION ALL
             SELECT ops.opid, ascii_id,
-                   replace(path_new, rootpath_old, rootpath_new) AS path_new
+                   iif(BUFFER.path_new NOT like rootpath_old || '%', path_new,
+                       rootpath_new || substr(path_new, length(rootpath_old))
+                   ) AS path_new
             FROM LOOP_MOVE AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
     ),
@@ -96,9 +98,9 @@ WHERE mvt.path_old = cat_id;
 
 DELETE FROM categories
 WHERE path IN (
-	SELECT path_old
-	FROM temp.move_targets AS mvt
-	WHERE mvt.target_exists = 1
+    SELECT path_old
+    FROM temp.move_targets AS mvt
+    WHERE mvt.target_exists = 1
 );
 
 RELEASE "MOVE_CATS";
