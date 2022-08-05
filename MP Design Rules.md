@@ -6,7 +6,15 @@ parent: Materialized Paths
 permalink: /mat-paths/design-rules
 ---
 
-This project explores SQLite capacity and features for managing hierarchical systems of categories. While the classical relational model does not mesh well with hierarchical data, there are several [approaches](#TreesAndRDBMS) to marrying these concepts. Category systems facilitate information [management](#ClassRefs) by associating each category with a specific characteristic/feature that distinguishes its members from nonmembers. The design of these category systems shall meet the following specification:
+This project explores SQLite capacity and features for managing hierarchical systems of categories. While the classical relational model does not mesh well with hierarchical data, there are several [approaches](#TreesAndRDBMS) to marrying these concepts.
+
+The data model explored in this project combines *Materialized Paths* (MPs) and *Parent References* [patterns][Model Tree Structures]. The MPs pattern stores redundant structural information and the structure modification operations usually affect entire subtrees, as opposed to localized changes in less redundant models. At the same time, it often facilitates data retrieval operations, which should be prioritized based on the anticipated usage pattern (consider adding this idea as a design rule).
+
+The project proposes a set of design rules for modeling category systems. This rule set, in my opinion, reflects the intuitive behavior of such a system, and anticipated use patterns and functionality provide the rationale for specific choices behind individual rules.
+
+The project also explores the possibility of developing an object-oriented (to some extent) SQL/SQLite source code library based on proposed rules. Such a library includes parameterized queries for standard MPs operations (such as new path creation and delete/move/copy operations similar to those provided by file systems). Structure modification operations rely on foreign key cascades where possible and employ multi-statement transactions where the business logic is more complicated. The SQL code uses a CTEs-based modular design and defines a unified JSON-based input format for both single- and multi-statement queries encapsulating specific implementation details. All redundant information (associated with the MPs pattern) is added via generated columns or constrained via appropriate foreign key relations to ensure data consistency (for further details, see the following section).
+
+Category systems facilitate information [management](#ClassRefs) by associating each category with a specific characteristic/feature that distinguishes its members from nonmembers. The design of these category systems shall meet the following specification:
 
 <a name="Rules"></a>
  1. Categories form a tree/forest structure.
@@ -68,6 +76,7 @@ The similar item-item interaction is beyond the scope of category system rules. 
 4. [Storing trees in RDBMS][Kolesnikova]
 5. [Django-Treebeard tree library for Django Web Framework][django-treebeard]
 6. [PostgreSQL tree module ltree][PostgreSQL ltree]
+7. [Trees in MongoDB][Model Tree Structures]
 
 
 <a name="ClassRefs"></a>
@@ -105,4 +114,5 @@ The similar item-item interaction is beyond the scope of category system rules. 
 [NS-MP]: http://rampant-books.com/art_vadim_nested_sets_sql_trees.htm
 [django-treebeard]: https://django-treebeard.readthedocs.io
 [PostgreSQL ltree]: https://www.postgresql.org/docs/current/ltree.html
+[Model Tree Structures]: https://mongodb.com/docs/manual/applications/data-models-tree-structures
 [Kolesnikova]: https://bitworks.software/en/2017-10-20-storing-trees-in-rdbms.html
