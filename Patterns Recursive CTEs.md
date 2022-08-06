@@ -89,24 +89,24 @@ Even though the RCTE loop body processes one row at a time, when the processing 
 
 ~~~sql
 WITH RECURSIVE
-	folders(path_old) AS (
-		VALUES
-			('doc/thesis/exp'),
-			('doc/thesis/theory'),
-			('doc/app/job/lor'),
-			('code/scripts/py'),
-			('code/scripts/bas')
-	),
+    folders(path_old) AS (
+        VALUES
+            ('doc/thesis/exp'),
+            ('doc/thesis/theory'),
+            ('doc/app/job/lor'),
+            ('code/scripts/py'),
+            ('code/scripts/bas')
+    ),
     ops(opid, rootpath_old, rootpath_new) AS (
         VALUES
-			(1, 'doc/',            'docABC'                 ),
-			(2, 'docABC/thesis/',  'docABC/master'          ),
-			(3, 'docABC/app/job/', 'docABC/app/academic_job'),
-			(4, 'code/',           'prog'                   )
+            (1, 'doc/',            'docABC'                 ),
+            (2, 'docABC/thesis/',  'docABC/master'          ),
+            (3, 'docABC/app/job/', 'docABC/app/academic_job'),
+            (4, 'code/',           'prog'                   )
     ),
     LOOP_COPY_INIT AS (
-			SELECT 0 AS opid, path_old AS path_new
-			FROM folders
+            SELECT 0 AS opid, path_old AS path_new
+            FROM folders
     ),
     LOOP_COPY_STEP_1 AS (
             SELECT ops.opid, path_new
@@ -114,7 +114,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY_INIT AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
@@ -125,7 +125,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY_STEP_1 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
@@ -136,7 +136,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY_STEP_2 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
@@ -147,7 +147,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY_STEP_3 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
@@ -158,7 +158,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
             FROM LOOP_COPY_STEP_4 AS BUFFER, ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
