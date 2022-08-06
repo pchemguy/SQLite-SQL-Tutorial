@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Recursive CTEs
+title: RCTEs for Recursive Modify
 nav_order: 9
 parent: Design Patterns
 permalink: /patterns/rcte-modify
