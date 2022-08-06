@@ -42,10 +42,11 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     )
-SELECT * FROM LOOP_COPY;
+SELECT * FROM LOOP_COPY
+WHERE opid = (SELECT max(ops.opid) FROM ops);
 ~~~
 
-Note that this task is still not particularly well suited for SQL. The initial SELECT places all paths in the processing queue, making them available in the first loop cycle. Because the COPY operation does not delete any folders, the entire input must be placed in the processing queue for the next loop cycle, meaning that the initial set and all previously created paths are duplicated during each loop cycle.
+Note that this task is still not particularly well suited for SQL. The initial SELECT places all paths in the processing queue for the first loop cycle. Because the COPY operation does not delete any folders, the entire input must be passed along between loop cycles, meaning that the initial set and all previously created paths are duplicated during each loop cycle. For this reason, the entire row set corresponding to the processing of the last operation is the final result, hence the last line in the query.
 
 Even though the RCTE loop body processes one row at a time, when the processing queue acts as FIFO (the default behavior), it might be helpful to treat the RCTE loop as if it processed the entire row set produced by the preceding cycle. When the processing queue acts as FIFO, this treatment is appropriate, as illustrated by the two tables above (compare the output of *Loop Cycle #1* shown in the first table with the column *Cycle #3* from the second table). The query below shows an equivalent implementation of the RCTE block (only valid for the given input), which unravels the above *LOOP_COPY* RCTE.
 
