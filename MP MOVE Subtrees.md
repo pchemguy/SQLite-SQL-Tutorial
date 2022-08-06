@@ -45,7 +45,7 @@ WITH RECURSIVE
     subtrees_old AS (
         SELECT opid, ascii_id, path AS path_old
         FROM base_ops, categories
-        WHERE path like rootpath_old || '%'
+        WHERE path_old like rootpath_old || '%'
         ORDER BY opid, path_old
     ),
     LOOP_MOVE AS (
@@ -60,9 +60,8 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
     ),
     subtrees_new_base AS (
-        SELECT
-            ascii_id, path_new,
-            json_extract('["' || replace(trim(path_new, '/'), '/', '", "') || '"]', '$[#-1]') AS name_new
+        SELECT ascii_id, path_new,
+               json_extract('["' || replace(trim(path_new, '/'), '/', '", "') || '"]', '$[#-1]') AS name_new
         FROM LOOP_MOVE
         WHERE opid = (SELECT max(base_ops.opid) FROM base_ops)
     ),
@@ -83,7 +82,6 @@ WITH RECURSIVE
     )
 INSERT INTO temp.move_targets (ascii_id, path_old, path_new, prefix_new, name_new, target_exists)
 SELECT * FROM new_paths ORDER BY target_exists, path_old;
-
 
 PRAGMA defer_foreign_keys = 1;
 SAVEPOINT "MOVE_CATS";

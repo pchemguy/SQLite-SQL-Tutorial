@@ -6,6 +6,8 @@ parent: Materialized Paths
 permalink: /mat-paths/copy
 ---
 
+The current convention for the COPY operation is to copy category subtrees only for each input category, but no category-item assignment. This convention simplifies the script
+
 ~~~sql
 WITH RECURSIVE
     json_ops(ops) AS (
@@ -40,8 +42,8 @@ WITH RECURSIVE
     subtrees_old AS (
         SELECT opid, ascii_id, path AS path_old
         FROM base_ops, categories
-        WHERE path like rootpath_old || '%'
-        ORDER BY opid, path
+        WHERE path_old like rootpath_old || '%'
+        ORDER BY opid, path_old
     ),
     LOOP_COPY AS (
             SELECT 0 AS opid, ascii_id, path_old AS path_new
