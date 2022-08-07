@@ -92,6 +92,6 @@ WITH
         SELECT bin_id AS id, asc_name AS name, asc_prefix AS prefix
 		FROM path_terms, ids USING (counter)
 	)
---INSERT INTO categories (id, name, prefix)
+INSERT INTO categories (id, name, prefix)
 SELECT * FROM new_nodes;
 ~~~
