@@ -6,7 +6,7 @@ parent: Design Patterns
 permalink: /patterns/variables
 ---
 
-Let us rewrite the previous [query](/patterns/split-dsv#DSV-Query) using common tables expressions (CTEs):
+Let us rewrite the previous [query](./split-dsv#DSV-Query) using common tables expressions (CTEs):
 
 ~~~sql
 WITH
@@ -17,7 +17,7 @@ WITH
 SELECT * FROM folders;
 ~~~
 
-Suppose we wish to turn it into a library query (as discussed [earlier]( /patterns/decoupling-sql)), which should split a generic string. For now, we ignore the potential presence of certain characters, such as backslashes and double quotes within the terms. Query interface:
+Suppose we wish to turn it into a library query (as discussed [earlier](./decoupling-sql)), which should split a generic string. For now, we ignore the potential presence of certain characters, such as backslashes and double quotes within the terms. Query interface:
 
   - input - the string to be split and the delimiter;
   - output - a list of terms.

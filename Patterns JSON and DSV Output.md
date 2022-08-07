@@ -8,7 +8,7 @@ permalink: /patterns/json-sql-output
 
 Using JSON, rather than a record set, for encoding the returned data may also be more efficient due to the reduced number of required API calls. While SQLite API is usually fast, each returned value still costs several API calls. (Under certain circumstances, however, there might be a high SQLite-independent overhead for each API call.) Another important consideration is whether there are any potential side effects of data conversion between numeric and textual formats. Let us show a few examples.
 
-Consider a modified query from the [Surrogate Variables](/patterns/variables#DSV-Query) section:
+Consider a modified query from the [Surrogate Variables](./variables#DSV-Query) section:
 
 ~~~sql
 WITH
