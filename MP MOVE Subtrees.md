@@ -6,6 +6,12 @@ parent: Materialized Paths
 permalink: /mat-paths/move
 ---
 
+The MOVE script moves/renames specified categories. The script also needs to handle associated items when necessary. For non-existing new paths, the database updates item associations automatically via foreign key cascades. However, when a collision occurs (existing new path), the scripts keeps one copy only (preferably the existing one), deleting the rest, and must update item associations explicitly before deletion. The current script updates the *files_categories* demo table and needs to be adjusted for actual association tables.
+
+The core transformation step uses an RCTE loop discussed in the [RCTEs for Recursive Modify](../patterns/rcte-modify) section. The MOVE operation does not create new paths as opposed to the COPY operation, so the loop code is simplified. Because the total number of existing category paths may be substantially higher than the number of affected paths, it is desirable to isolate the subset of affected paths. The *subtrees_old* CTE achieves this goal by matching the category path prefix against the *path_old* variable (*ops*).
+
+Postprocessing code includes two filters. The *subtrees_path* CTE matches the old and new paths and filters out unchanged categories. The *new_paths* CTE labels category rows for which path already exists in the *categories* table or duplicate *path_new* entries are present in the *subtrees_new_base*. The final set is used to update the *categories* table and associated relationship tables.
+
 ~~~sql
 CREATE TEMP TABLE IF NOT EXISTS move_targets (
     ascii_id, path_old, path_new, prefix_new, name_new, target_exists
@@ -13,6 +19,7 @@ CREATE TEMP TABLE IF NOT EXISTS move_targets (
 DELETE FROM temp.move_targets;
 
 WITH RECURSIVE
+    ------------------------------ PROLOGUE ------------------------------
     json_ops(ops) AS (
         VALUES
             (json(
@@ -42,12 +49,16 @@ WITH RECURSIVE
             trim(json_extract(value, '$.path_new'), '/') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
+    /********************************************************************/
+    --------------------------- SUBTREES LIST ----------------------------
     subtrees_old AS (
         SELECT opid, ascii_id, path AS path_old
         FROM base_ops, categories
         WHERE path_old like rootpath_old || '%'
         ORDER BY opid, path_old
     ),
+    /********************************************************************/
+    ----------------------------- MOVE LOOP ------------------------------
     LOOP_MOVE AS (
             SELECT 0 AS opid, ascii_id, path_old AS path_new
             FROM subtrees_old
@@ -59,6 +70,7 @@ WITH RECURSIVE
             FROM LOOP_MOVE AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
     ),
+    /********************************************************************/
     subtrees_new_base AS (
         SELECT ascii_id, path_new,
                json_extract('["' || replace(trim(path_new, '/'), '/', '", "') || '"]', '$[#-1]') AS name_new
@@ -86,13 +98,17 @@ SELECT * FROM new_paths ORDER BY target_exists, path_old;
 PRAGMA defer_foreign_keys = 1;
 SAVEPOINT "MOVE_CATS";
 
+-- Collision-free category updates
 UPDATE categories SET (name, prefix) = (name_new, prefix_new)
 FROM temp.move_targets AS mvt
-WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
+WHERE mvt.target_exists = 0
+  AND mvt.path_old = categories.path;
 
+-- Update association tables
 UPDATE files_categories SET cat_id = path_new
 FROM temp.move_targets AS mvt
-WHERE mvt.path_old = cat_id;
+WHERE mvt.target_exists = 1
+  AND mvt.path_old = cat_id;
 
 DELETE FROM categories
 WHERE path IN (

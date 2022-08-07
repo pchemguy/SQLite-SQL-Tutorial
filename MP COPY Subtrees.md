@@ -6,10 +6,15 @@ parent: Materialized Paths
 permalink: /mat-paths/copy
 ---
 
-The current convention for the COPY operation is to copy category subtrees only for each input category, but no category-item assignment. This convention simplifies the script
+The current convention for the COPY operation is to copy category subtrees only for each input category, but no category-item assignment. The core transformation step uses an RCTE loop discussed in the [RCTEs for Recursive Modify](../patterns/rcte-modify) section. Because the total number of existing category paths may be substantially higher than the number of affected paths, it is desirable to isolate the subset of affected paths. The *subtrees_old* CTE achieves this goal by matching the category path prefix against the *path_old* variable (*ops*).
+
+Postprocessing involves several filtering steps. *LOOP_COPY* transforms the initial path set and labels new rows. The *subtrees_new_base* CTE filters out original paths and some of the possible duplicates among the newly created paths. The second step (*subtrees_path*) filters out all remaining duplicates. The final filtering stage (*subtrees_new*) removes already existing paths.
+
+The rest of the code creates the remaining paths (the code is similar to the [CREATE Paths](./create) section).
 
 ~~~sql
 WITH RECURSIVE
+    ------------------------------ PROLOGUE ------------------------------
     json_ops(ops) AS (
         VALUES
             (json(
@@ -39,12 +44,16 @@ WITH RECURSIVE
             trim(json_extract(value, '$.path_new'), '/') AS rootpath_new
         FROM json_ops AS jo, json_each(jo.ops) AS terms
     ),
+    /********************************************************************/
+    --------------------------- SUBTREES LIST ----------------------------
     subtrees_old AS (
         SELECT opid, ascii_id, path AS path_old
         FROM base_ops, categories
         WHERE path_old like rootpath_old || '%'
         ORDER BY opid, path_old
     ),
+    /********************************************************************/
+    ----------------------------- COPY LOOP ------------------------------
     LOOP_COPY AS (
             SELECT 0 AS opid, ascii_id, path_old AS path_new
             FROM subtrees_old
@@ -59,6 +68,7 @@ WITH RECURSIVE
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
     ),
+    /********************************************************************/
     subtrees_new_base AS (
         SELECT ascii_id, path_new
         FROM LOOP_COPY
@@ -83,6 +93,7 @@ WITH RECURSIVE
                subtrees_new.*
         FROM subtrees_new
     ),
+    ------------------------- ASCII ID GENERATOR -------------------------
     id_counts(id_counter) AS (SELECT count(*) FROM new_paths),
     json_templates AS (SELECT '[' || replace(hex(zeroblob(id_counter*8/2-1)), '0', '0,') || '0,0]' AS json_template FROM id_counts),
     char_templates(char_template) AS (VALUES ('-0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_')),
@@ -103,7 +114,11 @@ WITH RECURSIVE
                (unicode(substr(ascii_id, 8, 1)) << 8*0) AS bin_id
         FROM ascii_ids
     ),
-    new_nodes AS (SELECT bin_id AS id, name_new AS name, prefix_new AS prefix FROM new_paths, ids USING (counter))
+    /********************************************************************/
+    new_nodes AS (
+        SELECT bin_id AS id, name_new AS name, prefix_new AS prefix
+        FROM new_paths, ids USING (counter)
+    )
 INSERT INTO categories (id, name, prefix)
 SELECT * FROM new_nodes;
 ~~~
