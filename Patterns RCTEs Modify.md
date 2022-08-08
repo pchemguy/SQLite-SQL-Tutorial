@@ -10,6 +10,13 @@ Recursive CTEs enable the implementation of the following task. Suppose we have 
 
 ~~~sql
 WITH RECURSIVE
+    ops(opid, rootpath_old, rootpath_new) AS (
+        VALUES
+            (1, 'doc/',            'docABC'                 ),
+            (2, 'docABC/thesis/',  'docABC/master'          ),
+            (3, 'docABC/app/job/', 'docABC/app/academic_job'),
+            (4, 'code/',           'prog'                   )
+    ),
     folders(path_old) AS (
         VALUES
             ('doc/thesis/exp'),
@@ -17,13 +24,6 @@ WITH RECURSIVE
             ('doc/app/job/lor'),
             ('code/scripts/py'),
             ('code/scripts/bas')
-    ),
-    ops(opid, rootpath_old, rootpath_new) AS (
-        VALUES
-            (1, 'doc/',            'docABC'                 ),
-            (2, 'docABC/thesis/',  'docABC/master'          ),
-            (3, 'docABC/app/job/', 'docABC/app/academic_job'),
-            (4, 'code/',           'prog'                   )
     ),
     LOOP_COPY AS (
             -- Initial SELECT --
@@ -52,6 +52,13 @@ Even though the RCTE loop body processes one row at a time, when the processing 
 
 ~~~sql
 WITH RECURSIVE
+    ops(opid, rootpath_old, rootpath_new) AS (
+        VALUES
+            (1, 'doc/',            'docABC'                 ),
+            (2, 'docABC/thesis/',  'docABC/master'          ),
+            (3, 'docABC/app/job/', 'docABC/app/academic_job'),
+            (4, 'code/',           'prog'                   )
+    ),
     folders(path_old) AS (
         VALUES
             ('doc/thesis/exp'),
@@ -59,13 +66,6 @@ WITH RECURSIVE
             ('doc/app/job/lor'),
             ('code/scripts/py'),
             ('code/scripts/bas')
-    ),
-    ops(opid, rootpath_old, rootpath_new) AS (
-        VALUES
-            (1, 'doc/',            'docABC'                 ),
-            (2, 'docABC/thesis/',  'docABC/master'          ),
-            (3, 'docABC/app/job/', 'docABC/app/academic_job'),
-            (4, 'code/',           'prog'                   )
     ),
     LOOP_COPY_INIT AS (
             SELECT 0 AS opid, path_old AS path_new
