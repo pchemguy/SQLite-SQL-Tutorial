@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Assets/database/Materialized Paths.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,10:maincategories"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="copy">WITH RECURSIVE
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="G:/Projects/GitHub/SQLite-SQL-Tutorial/Repo Assets/database/Materialized Paths.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="1"/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="5633"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><current_table name="4,16:mainfiles_categories"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="140"/><column index="2" value="69"/><column index="3" value="221"/><column index="4" value="300"/><column index="5" value="300"/></column_widths><filter_values><column index="4" value="BAZ/bld/tcl/tests/safe00/"/></filter_values><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="files_categories" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_"><sort/><column_widths><column index="1" value="300"/><column index="2" value="81"/></column_widths><filter_values><column index="1" value="preEEE/"/></filter_values><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="copy">WITH RECURSIVE
     ops_def(ops_json) AS (VALUES
         (json(
             '['                                                                                                  ||
@@ -1269,118 +1269,51 @@ WHERE mvt.path_old = categories.path AND mvt.target_exists = 0;
 -- SELECT * FROM LOOP_COPY_STEP_2;
 -- SELECT * FROM LOOP_COPY_STEP_3;
 SELECT * FROM LOOP_COPY_STEP_STOP;
-</sql><sql name="SQL 14">WITH RECURSIVE
-	folders(path_old) AS (
-		VALUES
-			('doc/thesis/exp'),
-			('doc/thesis/theory'),
-			('doc/app/job/lor'),
-			('code/scripts/py'),
-			('code/scripts/bas')
-	),
-    ops(opid, rootpath_old, rootpath_new) AS (
+</sql><sql name="SQL 22">WITH RECURSIVE
+    json_ops(ops) AS (
         VALUES
-			(1, 'doc/',            'docABC'                 ),
-			(2, 'docABC/thesis/',  'docABC/master'          ),
-			(3, 'docABC/app/job/', 'docABC/app/academic_job'),
-			(4, 'code/',           'prog'                   )
+            (json(
+                '['                                                                                      ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;doc/&quot;,            &quot;path_new&quot;:&quot;docABC&quot;},'                  ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;docABC/thesis/&quot;,  &quot;path_new&quot;:&quot;docABC/master&quot;},'           ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;docABC/app/job/&quot;, &quot;path_new&quot;:&quot;docABC/app/academic_job&quot;},' ||
+                    '{&quot;op&quot;:&quot;move&quot;, &quot;path_old&quot;:&quot;code/&quot;,           &quot;path_new&quot;:&quot;prog&quot;}'                     ||
+                ']'
+            ))
+    ),
+    base_ops AS (
+        SELECT
+            &quot;key&quot; + 1 AS opid,
+            json_extract(value, '$.op') AS op,
+            trim(json_extract(value, '$.path_old'), '/') || '/' AS rootpath_old,
+            trim(json_extract(value, '$.path_new'), '/') AS rootpath_new
+        FROM json_ops AS jo, json_each(jo.ops) AS terms
+    ),
+    folders(path_old) AS (
+        VALUES
+            ('doc/thesis/exp'),
+            ('doc/thesis/theory'),
+            ('doc/app/job/lor'),
+            ('code/scripts/py'),
+            ('code/scripts/bas')
     ),
     LOOP_COPY AS (
+            -- Initial SELECT --
             SELECT 0 AS opid, path_old AS path_new
             FROM folders
-        UNION ALL
+        UNION ALL -- LOOP body starts here --
+            -- Place input rows in the processing queue for the next loop
             SELECT ops.opid, path_new
-            FROM LOOP_COPY AS BUFFER, ops
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
         UNION ALL
+            -- Append the processing queue with new paths generated by the current operation        
             SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY AS BUFFER, ops
+                   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
+            FROM LOOP_COPY AS BUFFER, base_ops AS ops
             WHERE ops.opid = BUFFER.opid + 1
               AND BUFFER.path_new like rootpath_old || '%'            
-		ORDER BY opid
-    ),
-    
-    -------------------------------------------------------------------------------
-    -------------------------------------------------------------------------------
-    LOOP_COPY_INIT AS (
-			SELECT 0 AS opid, path_old AS path_new
-			FROM folders
-    ),
-    LOOP_COPY_STEP_1 AS (
-            SELECT ops.opid, path_new
-            FROM LOOP_COPY_INIT AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-        UNION ALL
-            SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY_INIT AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-              AND BUFFER.path_new like rootpath_old || '%'            
-    ),
-    LOOP_COPY_STEP_2 AS (
-            SELECT ops.opid, path_new
-            FROM LOOP_COPY_STEP_1 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-        UNION ALL
-            SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY_STEP_1 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-              AND BUFFER.path_new like rootpath_old || '%'            
-    ),
-    LOOP_COPY_STEP_3 AS (
-            SELECT ops.opid, path_new
-            FROM LOOP_COPY_STEP_2 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-        UNION ALL
-            SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY_STEP_2 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-              AND BUFFER.path_new like rootpath_old || '%'            
-    ),
-    LOOP_COPY_STEP_4 AS (
-            SELECT ops.opid, path_new
-            FROM LOOP_COPY_STEP_3 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-        UNION ALL
-            SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY_STEP_3 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-              AND BUFFER.path_new like rootpath_old || '%'            
-    ),
-    LOOP_COPY_STEP_5_STOP AS (
-            SELECT ops.opid, path_new
-            FROM LOOP_COPY_STEP_4 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-        UNION ALL
-            SELECT ops.opid,
-				   rootpath_new || substr(path_new, length(rootpath_old)) AS path_new
-            FROM LOOP_COPY_STEP_4 AS BUFFER, ops
-            WHERE ops.opid = BUFFER.opid + 1
-              AND BUFFER.path_new like rootpath_old || '%'            
-    ),
-    -------------------------------------------------------------------------------
-    -------------------------------------------------------------------------------
-    
-    subtrees_new_base AS (
-        SELECT ascii_id, path_new
-        FROM LOOP_COPY
-        WHERE opid = (SELECT max(opid) FROM base_ops)
-          AND length(ascii_id) &gt; 8
-        GROUP BY ascii_id, path_new
-        ORDER BY path_new
     )
-    
-	
--- SELECT * FROM subtrees_new_base;
--- SELECT * FROM LOOP_COPY_INIT;
--- SELECT * FROM LOOP_COPY_STEP_1;
--- SELECT * FROM LOOP_COPY_STEP_2;
--- SELECT * FROM LOOP_COPY_STEP_3;
--- SELECT * FROM LOOP_COPY_STEP_4;
--- SELECT * FROM LOOP_COPY_STEP_5_STOP;
-SELECT * FROM LOOP_COPY;
+SELECT * FROM LOOP_COPY
+WHERE opid = (SELECT max(ops.opid) FROM base_ops AS ops);
 </sql><current_tab id="12"/></tab_sql></sqlb_project>
