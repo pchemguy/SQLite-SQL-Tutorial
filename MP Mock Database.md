@@ -103,4 +103,4 @@ The conflict resolution clause on the primary key simplifies the category mergin
 <!-- References -->
 
 [TreesAndRDBMS]: ./design-rules#TreesAndRDBMS
-[mock SQLite database]: https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Assets/database/Materialized%20Paths.db
+[mock SQLite database]: https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Repo%20Assets/database/Materialized%20Paths.db
