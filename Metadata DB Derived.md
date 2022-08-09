@@ -13,7 +13,7 @@ Extended parsed and structured metadata is available for table columns ([table_x
 Consider the *pragma_table_xinfo* table-valued function, which takes either the target table name as a string (not an identifier!) or a column identifier. In the latter case, each column value should contain a table name, and this option permits the construction of a query collecting database-wide column information. The first query retrieves the list of database tables (*tables*), and the second query (*columns*) uses *pragma_table_xinfo* with the retrieved table list in its JOIN clause to produce a database-wide column set. A combination of the two via either the subquery construct or common table expressions (CTEs) results in a relatively simple query, but it is instructive to follow the CTEs route. [Fig. 1](#TableColumnsCTE) shows a schematic structure of the CTEs query (left panel), which includes two subqueries discussed above. The right panel shows the corresponding CTEs.
 
 <a name="TableColumnsCTE"></a>
-<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Assets/yEd/Table%20Columns.svg" alt="Table Columns and CTE" /></div>
+<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Repo Assets/yEd/Table Columns.svg" alt="Table Columns and CTE" /></div>
 <p align="center"><b>Fig. 1. Structure of the "Table Columns" Query</b></p>  
 
 The combined query below consists of the two CTEs and the following main query (the placement of the *columns* query inside the WITH clause is intentional, and the first CREATE VIEW line can be disregarded).
@@ -55,7 +55,7 @@ Additionally, given the output signature of the *tables* CTE and its semantics, 
 Both *pragma_foreign_key_list* and *pragma_index_list* return tables containing a row for each unique (column, index/FK) combination. The Foreign Keys query starts with a copy of the *table* block. The *columns* block, however, needs adjustments to take into account the signature and semantics of the returned table (*fkey_columns*). Furthermore, for composite indices/FKs, one row is returned for each participating column. Often, it is more convenient to have one row per index/FK, meaning that an additional WITH block is necessary to collapse rows corresponding to the same composite index/FK, as shown in [Fig. 2](#ForeignKeys).
 
 <a name="ForeignKeys"></a>
-<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Assets/yEd/Foreign Keys.svg" alt="Foreign Keys" /></div>
+<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Repo Assets/yEd/Foreign Keys.svg" alt="Foreign Keys" /></div>
 <p align="center"><b>Fig. 2. Structure of the "Foreign Keys" Query</b></p>  
 
 Note that the *src* (source) and *dst* (destination) prefixes refer to the *child* and *parent* sides of the foreign key relation, respectively. Also, the *fkey_columns* CTE must be ordered by composite component position (*seq/fk_seq*) within each foreign key (identified by the pair *src_table, fk_id*) before grouping in the next step. The standard approach to handling grouped column names is concatenation via the *group_concat* function to yield a CSV-like value. An alternative approach, shown in the *foreign_keys* CTE of the schematic, is to use the *json_group_array* function. The final query may look like this:
@@ -103,7 +103,7 @@ Although SQLite does not require indices on the child column(s) of foreign key r
 Criteria determining the suitability of a particular index differ slightly for simple and composite indices. For a single-column index, its column must be the same as the child column of a foreign key relationship (FKC column). For a composite index, its column vector must include the FKC column vector as its prefix (which also works for simple indices). For example, an index on (c.super_class, c.name, c.subclass) is suitable for foreign keys on (c.super_class), (c.super_class, c.name), and (c.super_class, c.name, c.subclass). A query returning index information for FKC columns can be constructed using the CTEs sections from the *indices* and *foreign key* CTEs above. One approach uses these queries as view definitions, and their join produces the final result. Alternatively, the new query includes individual CTEs sections directly and the join query at the end, as schematically illustrated in [Fig. 3](#FKeyChildIndices) and the code snippet below. 
 
 <a name="FKeyChildIndices"></a>
-<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Assets/yEd/FKeys Child Indices.svg" alt="FKeys Child Indices" /></div>
+<div align="center"><img src="https://github.com/pchemguy/SQLite-SQL-Tutorial/raw/gh-pages/Repo Assets/yEd/FKeys Child Indices.svg" alt="FKeys Child Indices" /></div>
 <p align="center"><b>Fig. 3. Structure of the "FKeys Child Indices" Query</b></p><br />
 
 <iframe id="FKeyChildIndicesHTML" width="100%" height="1050" frameBorder="0"
