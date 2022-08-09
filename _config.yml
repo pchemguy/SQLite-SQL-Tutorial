@@ -2,6 +2,11 @@ remote_theme: pmarsceill/just-the-docs
 
 title: "SQLite SQL Tutorial"
 
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM
+
 webmaster_verifications:
   google: "eeyANkR7sUrPKHD5z5GheWmEg9GY5Sjpn1aCSpbx0J0"
   yandex: "8703f875cde8e0ac"
