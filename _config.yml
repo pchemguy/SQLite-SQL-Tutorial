@@ -5,8 +5,10 @@ title: "SQLite SQL Tutorial"
 markdown: kramdown
 kramdown:
   input: GFM
-highlighter: rouge
-syntax_highlighter: rouge
+  highlighter: rouge
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    disable: true
 
 webmaster_verifications:
   google: "eeyANkR7sUrPKHD5z5GheWmEg9GY5Sjpn1aCSpbx0J0"
