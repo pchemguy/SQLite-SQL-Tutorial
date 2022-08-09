@@ -3,9 +3,10 @@ remote_theme: pmarsceill/just-the-docs
 title: "SQLite SQL Tutorial"
 
 markdown: kramdown
-highlighter: rouge
 kramdown:
   input: GFM
+highlighter: rouge
+syntax_highlighter: rouge
 
 webmaster_verifications:
   google: "eeyANkR7sUrPKHD5z5GheWmEg9GY5Sjpn1aCSpbx0J0"
