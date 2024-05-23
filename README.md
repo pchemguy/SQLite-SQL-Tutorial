@@ -18,4 +18,5 @@ See also this gist ([Exploring Zotero Data Model for Direct Database Access][Zot
 [JSON]: https://sqlite.org/json1.html
 [Parameterized queries]: https://sqlite.org/lang_expr.html#varparam
 [fWin]: https://sqlite.org/windowfunctions.html  
-[Zotero Data Model]:   
+[Zotero Data Model]: https://gist.github.com/pchemguy/19fa69fb4e74ef0cca0026aa0dbf5f42
+  
