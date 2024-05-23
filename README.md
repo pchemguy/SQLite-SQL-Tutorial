@@ -6,6 +6,7 @@ At the same time, SQLite provides several tools which help compensate for the me
 
 CTEs provide a powerful means for structuring complex queries into simple reusable code blocks, simplifying the development process and readability of the code. CTEs also make it possible to conveniently interrogate any intermediate code block without the need to make changes to the CTEs section. Intermediate queries may also be replaced with mocks constructed from immediate values, making it possible to verify the functionality of different code sections and develop them independently. The JSON library extends string manipulation capabilities, while parameterized queries help encapsulate SQL code. Single row queries constructed from immediate values placed within the CTEs clause may act as surrogate variables. Later, these values can be replaced with named parameters, yielding parameterized queries. The combination of CTEs, JSON, and parameterized queries permits an even higher degree of SQL code encapsulation with a JSON-based structured SQL interface and certain input flexibility.
 
+See also this gist ([Exploring Zotero Data Model for Direct Database Access][Zotero Data Model]), discussing the Zotero Data Model and providing sample SQL snippets for retrieving the data.
 
 <!-- References -->
 
@@ -16,4 +17,5 @@ CTEs provide a powerful means for structuring complex queries into simple reusab
 [RCTEs]: https://sqlite.org/lang_with.html#recursive_common_table_expressions
 [JSON]: https://sqlite.org/json1.html
 [Parameterized queries]: https://sqlite.org/lang_expr.html#varparam
-[fWin]: https://sqlite.org/windowfunctions.html
+[fWin]: https://sqlite.org/windowfunctions.html  
+[Zotero Data Model]:   
